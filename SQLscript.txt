@@ -1,0 +1,99 @@
+CREATE TABLE tb_usuario 
+( 
+ id INT PRIMARY KEY,  
+ id_instituicao INT,  
+ nome VARCHAR(255),  
+ email VARCHAR(255),  
+ senha_hash VARCHAR(255) 
+); 
+
+CREATE TABLE tb_grupo 
+( 
+ id INT PRIMARY KEY,  
+ nome VARCHAR(255),  
+ data_criacao DATE 
+); 
+
+CREATE TABLE tb_encontro 
+( 
+ id INT PRIMARY KEY,  
+ id_grupo INT,  
+ data_hora DATETIME,  
+ descricao VARCHAR(255),  
+ local VARCHAR(255) 
+); 
+
+CREATE TABLE tb_incricao 
+( 
+ id_usuario INT,  
+ id_grupo INT,  
+ status VARCHAR(50),  
+ papel VARCHAR(50),  
+ data DATE,
+ PRIMARY KEY (id_usuario, id_grupo)
+); 
+
+CREATE TABLE tb_instituicao 
+( 
+ id INT PRIMARY KEY,  
+ nome VARCHAR(255),  
+ estado VARCHAR(2),  
+ sigla VARCHAR(50) 
+); 
+
+CREATE TABLE tb_area_conhecimento 
+( 
+ id INT PRIMARY KEY,  
+ nome VARCHAR(255) 
+); 
+
+CREATE TABLE tb_material 
+( 
+ id INT PRIMARY KEY,  
+ id_usuario INT,  
+ id_grupo INT,  
+ tamanho_arquivo INT,  
+ conteudo_arquivo JSON,  
+ tipo_arquivo VARCHAR(50),  
+ data_hora DATETIME,  
+ descricao VARCHAR(255) 
+); 
+
+CREATE TABLE tb_aviso 
+( 
+ id INT PRIMARY KEY,  
+ id_usuario INT,  
+ id_grupo INT,  
+ data_expiracao DATETIME,  
+ data_hora DATETIME,  
+ descricao VARCHAR(255) 
+); 
+
+CREATE TABLE tb_comentario 
+( 
+ id INT PRIMARY KEY,  
+ id_usuario INT,  
+ id_grupo INT,  
+ data_hora DATETIME,  
+ descricao VARCHAR(255) 
+); 
+
+CREATE TABLE tb_grupo_area 
+( 
+ id_grupo INT,  
+ id_area INT,
+ PRIMARY KEY (id_grupo, id_area)
+); 
+
+ALTER TABLE tb_usuario ADD FOREIGN KEY(id_instituicao) REFERENCES tb_instituicao (id);
+ALTER TABLE tb_encontro ADD FOREIGN KEY(id_grupo) REFERENCES tb_grupo (id);
+ALTER TABLE tb_incricao ADD FOREIGN KEY(id_usuario) REFERENCES tb_usuario (id);
+ALTER TABLE tb_incricao ADD FOREIGN KEY(id_grupo) REFERENCES tb_grupo (id);
+ALTER TABLE tb_material ADD FOREIGN KEY(id_usuario) REFERENCES tb_usuario (id);
+ALTER TABLE tb_material ADD FOREIGN KEY(id_grupo) REFERENCES tb_grupo (id);
+ALTER TABLE tb_aviso ADD FOREIGN KEY(id_usuario) REFERENCES tb_usuario (id);
+ALTER TABLE tb_aviso ADD FOREIGN KEY(id_grupo) REFERENCES tb_grupo (id);
+ALTER TABLE tb_comentario ADD FOREIGN KEY(id_usuario) REFERENCES tb_usuario (id);
+ALTER TABLE tb_comentario ADD FOREIGN KEY(id_grupo) REFERENCES tb_grupo (id);
+ALTER TABLE tb_grupo_area ADD FOREIGN KEY(id_grupo) REFERENCES tb_area_conhecimento (id);
+ALTER TABLE tb_grupo_area ADD FOREIGN KEY(id_area) REFERENCES tb_grupo (id);
