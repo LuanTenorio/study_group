@@ -1,0 +1,13 @@
+<div class="layout-wrapper">
+  <header class="top-navbar">
+    <p-menubar [model]="menuItems">
+      <ng-template pTemplate="start">
+        <span class="logo-text">Grupo de estudos</span>
+      </ng-template>
+    </p-menubar>
+  </header>
+
+  <main class="content-area">
+    <router-outlet></router-outlet>
+  </main>
+</div>

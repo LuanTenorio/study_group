@@ -1,0 +1,31 @@
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+
+  .top-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    
+    .logo-text {
+      font-weight: bold;
+      font-size: 1.25rem;
+      margin-right: 2rem;
+      color: var(--primary-color);
+    }
+  }
+
+  .content-area {
+    flex-grow: 1;
+    padding: 2rem;
+    background-color: var(--surface-ground);
+    
+    transition: all 0.3s ease;
+  }
+}
+
+:host {
+  display: block;
+}
