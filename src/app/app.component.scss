@@ -1,0 +1,62 @@
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+
+  .top-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--navbar-bg);
+    border-bottom: 1px solid #cbd5e1;
+    box-shadow: var(--shadow-sm);
+
+    ::ng-deep .p-menubar {
+      background-color: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 0.5rem 2rem;
+    
+      .p-menuitem {
+        margin: 0 0.25rem;
+      }
+
+      .p-menuitem-link {
+        color: var(--navbar-text);
+        font-weight: 500;
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background-color: var(--navbar-hover);
+          color: var(--accent-blue);
+        }
+
+        .p-menuitem-text, 
+        .p-menuitem-icon {
+          color: inherit;
+        }
+      }
+    }
+    
+    .logo-text {
+      font-weight: 800;
+      font-size: 1.25rem;
+      margin-right: 2rem;
+      color: var(--accent-blue);
+      letter-spacing: -0.025em;
+    }
+  }
+
+  .content-area {
+    flex-grow: 1;
+    padding: 2rem;
+    background-color: transparent; 
+  }
+}
+
+:host {
+  display: block;
+}
