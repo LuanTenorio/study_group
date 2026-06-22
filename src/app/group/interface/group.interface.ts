@@ -1,3 +1,4 @@
+import { Comment } from "../../comment/interface/comment.interface"
 import { Material } from "../../material/interface/material.interface"
 import { Meet } from "../../meet/interface/meet.interface"
 import { Notice } from "../../notice/interface/notice.interface"

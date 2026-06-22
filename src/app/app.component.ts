@@ -14,12 +14,12 @@ export class AppComponent {
 
   menuItems = [
       {
-        label: 'Início',
-        routerLink: ['/group/1']
+        label: 'GRUPOS',
+        routerLink: ['/group', '1'] // TODO: Alterar para as rotas certas futuramente
       },
       {
-        label: 'Configurações',
-        routerLink: ['/group/2']
+        label: 'CONFIGURAÇÕES',
+        routerLink: ['/group', '2']
       }
     ];
 
