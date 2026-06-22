@@ -1,1 +1,69 @@
-<p>Testeeee</p>
+@if (requestError()){ <p>Erro ao carregar grupo</p> }
+@else if (group() === undefined) { <p>Carregando grupo...</p> }
+@else {
+  <div class="course-container">
+    <header class="course-header">
+      <h1 class="course-title">{{ group()?.name }}</h1>
+    </header>
+  
+    <main class="course-content">
+    <p-accordion [multiple]="true" [value]="activeTabs" styleClass="aprender-accordion">
+      
+      <p-accordion-panel value="notices">
+        <p-accordion-header>Geral</p-accordion-header>
+        <p-accordion-content>
+          <ul class="resource-list">
+            @for (notice of group()?.notices; track $index) {
+              <li class="resource-item" (click)="openNotice(notice)">
+                <div class="icon-wrapper notice-icon">
+                  <i class="pi pi-info-circle"></i>
+                </div>
+                <span class="resource-title">{{ notice.description }}</span>
+              </li>
+            } @empty {
+              <div class="empty-state">Nenhuma notícia cadastrada.</div>
+            }
+          </ul>
+        </p-accordion-content>
+      </p-accordion-panel>
+  
+      <p-accordion-panel value="materiais">
+        <p-accordion-header>Materiais de Estudo</p-accordion-header>
+        <p-accordion-content>
+          <ul class="resource-list">
+            @for (material of group()?.materials; track $index) {
+              <li class="resource-item" (click)="openMaterial(material)">
+                <div class="icon-wrapper pdf-icon">
+                  <i [class]="'pi pi-'+ getMaterialIcon(material)"></i>
+                </div>
+                <span class="resource-title">{{ material.description }}</span>
+              </li>
+            } @empty {
+              <div class="empty-state">Nenhum material disponivel.</div>
+            }
+          </ul>
+        </p-accordion-content>
+      </p-accordion-panel>
+  
+      <p-accordion-panel value="meets">
+        <p-accordion-header>Encontros</p-accordion-header>
+        <p-accordion-content>
+          <ul class="resource-list">
+            @for (meet of group()?.meets; track $index) {
+              <li class="resource-item" (click)="openMeet(meet)">
+                <div class="icon-wrapper meet-icon">
+                  <i class="pi pi-calendar"></i>
+                </div>
+                <span class="resource-title">{{ meet.description }}</span>
+              </li>
+            } @empty {
+              <div class="empty-state">Nenhum encontro agendado.</div>
+            }
+          </ul>
+        </p-accordion-content>
+      </p-accordion-panel>
+  
+    </p-accordion>
+  </main>
+  </div>
+}
