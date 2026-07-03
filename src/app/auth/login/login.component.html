@@ -1,0 +1,54 @@
+<main class="login-page">
+  <section class="login-card">
+    <header class="login-header">
+      <h1 class="login-title">Entrar</h1>
+
+      <p class="login-subtitle">
+        Acesse sua conta para continuar.
+      </p>
+    </header>
+
+    <form
+      class="login-form"
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()">
+
+      <div class="form-field">
+        <label for="email">E-mail</label>
+
+        <input
+          id="email"
+          type="email"
+          pInputText
+          formControlName="email"
+          autocomplete="email"
+          fluid />
+      </div>
+
+      <div class="form-field">
+        <label for="password">Senha</label>
+
+        <p-password
+          inputId="password"
+          formControlName="password"
+          [feedback]="false"
+          autocomplete="current-password"
+          fluid>
+        </p-password>
+      </div>
+
+      @if (requestError()) {
+        <p-message severity="error" variant="simple">
+          {{ requestError() }}
+        </p-message>
+      }
+
+      <div class="form-actions">
+        <p-button
+          type="submit"
+          label="Entrar">
+        </p-button>
+      </div>
+    </form>
+  </section>
+</main>
