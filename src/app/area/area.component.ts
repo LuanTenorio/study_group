@@ -12,22 +12,22 @@ import { FeedService } from '../feed/service/feed.service';
 })
 export class AreaComponent implements OnInit {
 
-  // Injetando o service compartilhado
+  // injetando o service para poder acessar a lista de grupos e categorias e as funções de filtro
   readonly feedService = inject(FeedService);
   
   areaName = signal<string>('Carregando...');
   
-  // Consumindo a lista de grupos diretamente do service (já filtrada!)
+  // consumindo a lista de grupos diretamente do service (já filtrada)
   groups = this.feedService.groups;
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    // Escuta a URL para saber qual área o usuário acessou
+    // puxa a area pela url da pagina
     this.route.paramMap.subscribe(params => {
       const slug = params.get('name') || '';
       
-      // Usa o service para pegar o nome real (ex: "Biológicas")
+      // sa o service para pegar o nome real (ex: "Biológicas")
       const realName = this.feedService.getAreaNameBySlug(slug);
       this.areaName.set(realName);
       

@@ -2,8 +2,8 @@ import { Injectable, signal, computed } from '@angular/core';
 import { group_card } from '../interface/group_card.interface';
 import { area_card } from '../../area/interface/area_card.interface';
 
-// Dados mockados — quando integrar com o back, isso sai daqui e
-// _groups passa a ser preenchido via loadGroups() (ver comentário no final).
+// mocking de dados (futuro: substituir por chamada real ao back)
+// _groups passa a ser preenchido via loadGroups() .
 const MOCK_GROUPS: group_card[] = [
   { id: 1, title: 'Grupo de Humanas 1', institution: 'UnB', area: 'Humanas', members: 15, nextMeeting: 'Hoje, 19:00' },
   { id: 2, title: 'Estudos Avançados de Humanas', institution: 'USP', area: 'Humanas', members: 22, nextMeeting: 'Amanhã, 10:00' },
@@ -13,7 +13,6 @@ const MOCK_GROUPS: group_card[] = [
 ];
 
 // Fonte única das categorias (nomes com acento preservado).
-// Antes vivia duplicado dentro do FeedComponent — agora tanto o FeedComponent
 // (grid de categorias) quanto o AreaComponent (recuperar nome a partir da URL)
 // usam essa mesma lista, evitando divergência.
 const CATEGORIES: area_card[] = [
@@ -34,17 +33,17 @@ export class FeedService {
 
   readonly categories = signal<area_card[]>(CATEGORIES);
 
-  // Lista completa de grupos (fonte única da verdade da página de feed)
+  // lista completa de grupos TODO: substituir por chamada real ao back
   private readonly _groups = signal<group_card[]>(MOCK_GROUPS);
 
-  // Filtros controlados pela barra de pesquisa
+  // filtros de busca 
   readonly searchTerm = signal('');
   readonly institution = signal('');
 
-  // Filtro de área (usado pela página de área/categoria; '' = qualquer área, usado no feed geral)
+  // filtro de área, usado pela página de área 
   readonly areaFilter = signal('');
 
-  // Lista já filtrada, pronta para o template consumir com groups()
+  // lista já filtrada
   readonly groups = computed(() => {
     const term = this.searchTerm().trim().toLowerCase();
     const inst = this.institution();
@@ -74,17 +73,12 @@ export class FeedService {
     this.searchTerm.set('');
     this.institution.set('');
   }
-
-  // Remove acentos e deixa minúsculo, pra gerar/comparar slugs de URL
-  // (ex: 'Biológicas' -> 'biologicas'). Único lugar onde essa regra existe,
-  // usado tanto para montar a URL (goToArea) quanto pra ler ela de volta.
+  // normaliza os nomes de áreas para a URL, evitando divergência 
   slugify(text: string): string {
     return text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   }
 
-  // Recupera o nome "de verdade" (com acento) de uma área a partir do slug
-  // vindo da URL. Se não achar na lista de categorias, cai no fallback
-  // antigo (só capitaliza a primeira letra).
+  //recupera o nome real da área a partir do slug da URL, evitando divergência
   getAreaNameBySlug(slug: string): string {
     const found = this.categories().find(c => this.slugify(c.name) === slug.toLowerCase());
     if (found) return found.name;

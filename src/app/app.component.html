@@ -1,9 +1,21 @@
 <div class="layout-wrapper">
   <header class="top-navbar">
     <p-menubar [model]="menuItems">
+      
+      <!-- redirecionamento para o feed através da logo -->
       <ng-template pTemplate="start">
-        <span class="logo-text">Grupo de estudos</span>
+        <span class="logo-text" routerLink="/">Grupo de estudos</span>
       </ng-template>
+
+      <!-- botões de Autenticação -->
+      <ng-template pTemplate="end">
+        <div class="auth-buttons">
+          <!-- TODO: alterar links -->
+          <button class="btn-login" routerLink="/login">Login</button>
+          <button class="btn-cadastro" routerLink="/cadastro">Cadastro</button>
+        </div>
+      </ng-template>
+      
     </p-menubar>
   </header>
 

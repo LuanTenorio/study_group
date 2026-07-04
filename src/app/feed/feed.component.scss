@@ -1,5 +1,3 @@
-/* src/app/area/area.component.scss */
-/* src/app/area/area.component.scss */
 :host {
   display: block;
   width: 100%;
@@ -11,13 +9,10 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  /* Removido position: absolute */
+
 }
 
 .hero-banner {
-  /* O .content-area (app.component.scss) tem padding: 2rem nos 4 lados.
-     Aqui cancelamos esse padding no topo/laterais para o banner colar
-     na navbar e nas bordas da página. */
   margin: -2rem -2rem 0 -2rem;
   width: calc(100% + 4rem);
 
@@ -49,7 +44,6 @@
 }
 
 .search-container {
-  /* Largura aumentada para 1400px para expandir a área horizontal */
   max-width: 1400px;
   margin: -40px auto 0;
   padding: 0 1rem;
@@ -121,7 +115,6 @@
 }
 
 .feed-main {
-  /* Largura aumentada para 1400px */
   max-width: 1400px;
   margin: 0 auto;
   padding: 4rem 1rem;
@@ -168,7 +161,7 @@
   }
 }
 
-/* Novo Grid de Categorias */
+
 .category-grid {
   display: flex;
   gap: 1.5rem;
@@ -177,7 +170,7 @@
 
 .category-card {
   background: white;
-  border-radius: 32px; /* Borda bem arredondada como no exemplo */
+  border-radius: 32px; 
   width: 140px;
   height: 140px;
   display: flex;
@@ -193,7 +186,7 @@
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-    border-color: #8b5cf6; /* Cor da borda ao passar o mouse */
+    border-color: #8b5cf6; 
     
     i {
       transform: scale(1.1);
@@ -202,7 +195,7 @@
 
   i {
     font-size: 2.2rem;
-    color: #8b5cf6; /* Cor roxa similar ao exemplo da imagem */
+    color: #8b5cf6; 
     transition: transform 0.3s ease;
   }
 
@@ -216,11 +209,6 @@
 
 .group-grid {
   display: grid;
-  /* min: 300px garante 2 colunas mesmo em janelas mais estreitas
-     (ex: navegador dividido com o editor, ~700-750px de largura).
-     max: 380px deixa o card crescer (fica maior que a versão anterior)
-     quando sobra espaço, sem esticar até virar 1 card gigante sozinho
-     na linha quando há poucos resultados. */
   grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 380px));
   justify-content: start;
   gap: 4.5rem;

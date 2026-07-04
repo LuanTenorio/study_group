@@ -1,6 +1,6 @@
 <div class="feed-container">
   
-  <!-- Banner Hero -->
+  <!-- banner superior -->
   <div class="hero-banner">
     <div class="hero-content">
       <h1>Encontre sua comunidade de estudos</h1>
@@ -8,7 +8,7 @@
     </div>
   </div>
 
-  <!-- Barra de Pesquisa -->
+  <!-- barra de Pesquisa -->
   <div class="search-container">
     <div class="search-box">
       <div class="input-group">
@@ -29,10 +29,10 @@
     </div>
   </div>
 
-  <!-- Conteúdo Principal -->
+  <!-- conteúdo principal -->
   <main class="feed-main">
     
-    <!-- Categorias: Áreas de Conhecimento -->
+    <!-- cards de áreas de conhecimento -->
     <section class="feed-section">
       <div class="section-header">
         <h2>Áreas de Conhecimento</h2>
@@ -40,7 +40,6 @@
 
       <div class="category-grid">
         @for (category of categories(); track category.name) {
-          <!-- Evento de clique adicionado aqui! -->
           <div class="category-card" (click)="goToArea(category.name)">
             <i [class]="'pi ' + category.icon"></i>
             <span>{{ category.name }}</span>
@@ -49,7 +48,7 @@
       </div>
     </section>
 
-    <!-- Carrossel: Grupos Populares -->
+    <!-- grid de grupos Populares -->
     <section class="feed-section">
       <div class="section-header">
         <h2>Grupos Mais Populares <span class="badge-destaque">em destaque</span></h2>

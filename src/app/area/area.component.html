@@ -1,6 +1,6 @@
 <div class="feed-container">
   
-  <!-- Banner Hero Customizado para a Área -->
+  <!-- banner costumizado -->
   <div class="hero-banner">
     <div class="hero-content">
       <h1>{{ areaName() }}</h1>
@@ -8,18 +8,16 @@
     </div>
   </div>
 
-  <!-- Barra de Pesquisa Simplificada -->
+  <!-- barra de pesquisa -->
   <div class="search-container">
     <div class="search-box">
       <div class="input-group">
         <i class="pi pi-search"></i>
-        <!-- Ligando o input de texto ao serviço -->
         <input #searchInput type="text" placeholder="Pesquisar por nome do grupo em {{ areaName() }}..." (keyup.enter)="feedService.setSearchTerm(searchInput.value)">
       </div>
       
       <div class="input-group">
         <i class="pi pi-building"></i>
-        <!-- Ligando o select de instituição ao serviço -->
         <select #instSelect (change)="feedService.setInstitution(instSelect.value)">
           <option value="">Qualquer Instituição</option>
           <option value="unb">UnB</option>
@@ -27,12 +25,11 @@
         </select>
       </div>
 
-      <!-- Ligando o botão de busca aos métodos do serviço -->
       <button class="btn-search" (click)="feedService.setSearchTerm(searchInput.value); feedService.setInstitution(instSelect.value)">Buscar</button>
     </div>
   </div>
 
-  <!-- Grid de Resultados -->
+  <!-- grid de Resultados -->
   <main class="feed-main">
     <div class="section-header">
       <h2>Grupos Encontrados</h2>
