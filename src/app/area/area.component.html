@@ -1,0 +1,59 @@
+<div class="feed-container">
+  
+  <!-- banner costumizado -->
+  <div class="hero-banner">
+    <div class="hero-content">
+      <h1>{{ areaName() }}</h1>
+      <p>Explore todos os grupos de estudos disponíveis para esta área de conhecimento.</p>
+    </div>
+  </div>
+
+  <!-- barra de pesquisa -->
+  <div class="search-container">
+    <div class="search-box">
+      <div class="input-group">
+        <i class="pi pi-search"></i>
+        <input #searchInput type="text" placeholder="Pesquisar por nome do grupo em {{ areaName() }}..." (keyup.enter)="feedService.setSearchTerm(searchInput.value)">
+      </div>
+      
+      <div class="input-group">
+        <i class="pi pi-building"></i>
+        <select #instSelect (change)="feedService.setInstitution(instSelect.value)">
+          <option value="">Qualquer Instituição</option>
+          <option value="unb">UnB</option>
+          <option value="usp">USP</option>
+        </select>
+      </div>
+
+      <button class="btn-search" (click)="feedService.setSearchTerm(searchInput.value); feedService.setInstitution(instSelect.value)">Buscar</button>
+    </div>
+  </div>
+
+  <!-- grid de Resultados -->
+  <main class="feed-main">
+    <div class="section-header">
+      <h2>Grupos Encontrados</h2>
+    </div>
+
+    <div class="group-grid">
+      @for (group of groups(); track group.title) {
+        <div class="group-card">
+          <div class="card-content">
+            <div class="tags">
+              <span class="tag-inst">{{ group.institution }}</span>
+              <span class="tag-area">{{ group.area }}</span>
+            </div>
+            <h3>{{ group.title }}</h3>
+            <div class="card-info">
+              <span><i class="pi pi-users"></i> <strong>{{ group.members }}</strong> membros ativos</span>
+              <span><i class="pi pi-calendar"></i> Próx. encontro: {{ group.nextMeeting }}</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            Ver detalhes &rarr;
+          </div>
+        </div>
+      }
+    </div>
+  </main>
+</div>
