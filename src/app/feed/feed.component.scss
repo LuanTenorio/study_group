@@ -1,51 +1,50 @@
+/* src/app/area/area.component.scss */
+/* src/app/area/area.component.scss */
+:host {
+  display: block;
+  width: 100%;
+}
+
 .feed-container {
   background-color: #f8fafc;
   min-height: 100vh;
-  font-family: Arial, Helvetica, sans-serif;
-  
-  /* TRUQUE FULL-BLEED: Ocupa 100% da tela quebrando o padding/max-width do elemento pai */
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  
-  margin-top: -2rem; 
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* Removido position: absolute */
 }
 
 .hero-banner {
-  position: relative;
+  /* O .content-area (app.component.scss) tem padding: 2rem nos 4 lados.
+     Aqui cancelamos esse padding no topo/laterais para o banner colar
+     na navbar e nas bordas da página. */
+  margin: -2rem -2rem 0 -2rem;
+  width: calc(100% + 4rem);
+
   height: 320px;
-  
   background-color: #0f172a;
   background-image: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
 
-  .hero-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0 1rem;
-    text-align: center;
+.hero-content {
+  text-align: center;
+  color: white;
+  padding: 0 1rem;
+  width: 100%;
+  max-width: 800px;
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
 
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: white;
-      margin-bottom: 1rem;
-    }
-
-    p {
-      font-size: 1.125rem;
-      color: #e0e7ff;
-      max-width: 800px;
-    }
+  p {
+    font-size: 1.125rem;
+    color: #e0e7ff;
   }
 }
 

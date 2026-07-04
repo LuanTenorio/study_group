@@ -28,8 +28,15 @@
 body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  min-height: 100%;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background-color: var(--bg-main);
   color: var(--text-main);
   -webkit-font-smoothing: antialiased;
+}
+
+app-root {
+  display: block;
+  width: 100%;
 }
