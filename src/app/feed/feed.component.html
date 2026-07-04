@@ -1,0 +1,83 @@
+<div class="feed-container">
+  
+  <!-- Banner Hero Azul e Limpo -->
+  <div class="hero-banner">
+    <div class="hero-content">
+      <h1>Encontre sua comunidade de estudos</h1>
+      <p>Conecte-se com alunos de todo o país, compartilhe conhecimento e alcance seus objetivos acadêmicos juntos.</p>
+    </div>
+  </div>
+
+  <!-- Barra de Pesquisa -->
+  <div class="search-container">
+    <div class="search-box">
+      
+      <div class="input-group">
+        <i class="pi pi-search"></i>
+        <input type="text" placeholder="Pesquisar por nome do grupo...">
+      </div>
+      
+      <div class="input-group">
+        <i class="pi pi-building"></i>
+        <select>
+          <option value="" disabled selected>Qualquer Instituição</option>
+          <option value="unb">Universidade de Brasília (UnB)</option>
+          <option value="usp">Universidade de São Paulo (USP)</option>
+          <option value="ufmg">Universidade Federal de Minas Gerais (UFMG)</option>
+        </select>
+      </div>
+
+      <button class="btn-search">Buscar</button>
+    </div>
+  </div>
+
+  <!-- conteúdo principal -->
+  <main class="feed-main">
+    
+    <!-- cards de areas conhecimento -->
+    <section class="feed-section">
+      <div class="section-header">
+        <h2>Áreas de Conhecimento</h2>
+      </div>
+
+      <div class="category-grid">
+        @for (category of categories(); track category.name) {
+          <div class="category-card">
+            <i [class]="'pi ' + category.icon"></i>
+            <span>{{ category.name }}</span>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- grupos populares -->
+    <section class="feed-section">
+      <div class="section-header">
+        <h2>Grupos Populares <span class="badge-destaque">em destaque</span></h2>
+        <button class="btn-link">Ver todos</button>
+      </div>
+
+      <div class="group-grid">
+        @for (group of popularGroups(); track group.title) {
+          <div class="group-card">
+            <div class="card-content">
+              <div class="tags">
+                <span class="tag-inst">{{ group.institution }}</span>
+                <span class="tag-area">{{ group.area }}</span>
+              </div>
+              <h3>{{ group.title }}</h3>
+              <div class="card-info">
+                <span><i class="pi pi-users"></i> <strong>{{ group.members }}</strong> membros ativos</span>
+                <span><i class="pi pi-calendar"></i> Próx. encontro: {{ group.nextMeeting }}</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              Ver detalhes &rarr;
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+  </main>
+</div>
