@@ -1,5 +1,9 @@
-import { CommonModule } from "@angular/common";
-import { Component, signal } from "@angular/core";
+import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router'; // <-- Import necessário para navegação
+import { group_card } from './interface/group_card.interface';
+import { area_card } from './interface/area_card.interface';
+
 
 @Component({
   selector: 'app-feed',
@@ -10,7 +14,15 @@ import { Component, signal } from "@angular/core";
 })
 export class FeedComponent {
   
-  // Categorias de Áreas de Conhecimento
+  // Injetando o Router no construtor
+  constructor(private router: Router) {}
+
+  // Função que redireciona o usuário para a página da área
+  goToArea(areaName: string) {
+    const areaFormatada = areaName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Remove acentos
+    this.router.navigate(['/area', areaFormatada]);
+  }
+  
   categories = signal<area_card[]>([
     { name: 'Exatas', icon: 'pi-calculator' },
     { name: 'Humanas', icon: 'pi-book' },
@@ -36,20 +48,6 @@ export class FeedComponent {
       area: 'Computação',
       members: 8,
       nextMeeting: 'Sexta, 19:00'
-    },
-    {
-      title: 'Engenharia de Software Ágil',
-      institution: 'UFMG',
-      area: 'Tecnologia',
-      members: 7,
-      nextMeeting: 'Segunda, 10:00'
-    },
-    {
-      title: 'Cálculo 2 - Resolução de Listas',
-      institution: 'Unicamp',
-      area: 'Exatas',
-      members: 25,
-      nextMeeting: 'Hoje, 16:00'
     }
   ]);
 }

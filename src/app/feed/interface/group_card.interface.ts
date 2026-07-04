@@ -1,4 +1,4 @@
-interface group_card {
+export interface group_card {
   title: string;
   institution: string;
   area: string;

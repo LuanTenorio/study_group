@@ -1,6 +1,6 @@
 <div class="feed-container">
   
-  <!-- Banner Hero Azul e Limpo -->
+  <!-- Banner Hero -->
   <div class="hero-banner">
     <div class="hero-content">
       <h1>Encontre sua comunidade de estudos</h1>
@@ -31,10 +31,10 @@
     </div>
   </div>
 
-  <!-- conteúdo principal -->
+  <!-- Conteúdo Principal -->
   <main class="feed-main">
     
-    <!-- cards de areas conhecimento -->
+    <!-- Categorias: Áreas de Conhecimento -->
     <section class="feed-section">
       <div class="section-header">
         <h2>Áreas de Conhecimento</h2>
@@ -42,7 +42,8 @@
 
       <div class="category-grid">
         @for (category of categories(); track category.name) {
-          <div class="category-card">
+          <!-- Evento de clique adicionado aqui! -->
+          <div class="category-card" (click)="goToArea(category.name)">
             <i [class]="'pi ' + category.icon"></i>
             <span>{{ category.name }}</span>
           </div>
@@ -50,10 +51,10 @@
       </div>
     </section>
 
-    <!-- grupos populares -->
+    <!-- Carrossel: Grupos Populares -->
     <section class="feed-section">
       <div class="section-header">
-        <h2>Grupos Populares <span class="badge-destaque">em destaque</span></h2>
+        <h2>Grupos Mais Populares <span class="badge-destaque">em destaque</span></h2>
         <button class="btn-link">Ver todos</button>
       </div>
 
