@@ -45,6 +45,7 @@
 
 .search-container {
   max-width: 1400px;
+  width: 100%; /* <-- CORREÇÃO: Força o contêiner a expandir e anula o encolhimento do flexbox */
   margin: -40px auto 0;
   padding: 0 1rem;
   position: relative;
