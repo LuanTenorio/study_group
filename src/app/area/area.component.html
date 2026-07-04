@@ -13,19 +13,22 @@
     <div class="search-box">
       <div class="input-group">
         <i class="pi pi-search"></i>
-        <input type="text" placeholder="Pesquisar por nome do grupo em {{ areaName() }}...">
+        <!-- Ligando o input de texto ao serviço -->
+        <input #searchInput type="text" placeholder="Pesquisar por nome do grupo em {{ areaName() }}..." (keyup.enter)="feedService.setSearchTerm(searchInput.value)">
       </div>
       
       <div class="input-group">
         <i class="pi pi-building"></i>
-        <select>
-          <option value="" disabled selected>Filtrar por Instituição</option>
-          <option value="unb">Universidade de Brasília (UnB)</option>
-          <option value="usp">Universidade de São Paulo (USP)</option>
+        <!-- Ligando o select de instituição ao serviço -->
+        <select #instSelect (change)="feedService.setInstitution(instSelect.value)">
+          <option value="">Qualquer Instituição</option>
+          <option value="unb">UnB</option>
+          <option value="usp">USP</option>
         </select>
       </div>
 
-      <button class="btn-search">Buscar</button>
+      <!-- Ligando o botão de busca aos métodos do serviço -->
+      <button class="btn-search" (click)="feedService.setSearchTerm(searchInput.value); feedService.setInstitution(instSelect.value)">Buscar</button>
     </div>
   </div>
 

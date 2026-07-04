@@ -11,23 +11,21 @@
   <!-- Barra de Pesquisa -->
   <div class="search-container">
     <div class="search-box">
-      
       <div class="input-group">
         <i class="pi pi-search"></i>
-        <input type="text" placeholder="Pesquisar por nome do grupo...">
+        <input #searchInput type="text" placeholder="Pesquisar por nome do grupo..." (keyup.enter)="feedService.setSearchTerm(searchInput.value)">
       </div>
-      
+
       <div class="input-group">
         <i class="pi pi-building"></i>
-        <select>
-          <option value="" disabled selected>Qualquer Instituição</option>
-          <option value="unb">Universidade de Brasília (UnB)</option>
-          <option value="usp">Universidade de São Paulo (USP)</option>
-          <option value="ufmg">Universidade Federal de Minas Gerais (UFMG)</option>
+        <select #instSelect (change)="feedService.setInstitution(instSelect.value)">
+          <option value="">Qualquer Instituição</option>
+          <option value="unb">UnB</option>
+          <option value="usp">USP</option>
         </select>
       </div>
 
-      <button class="btn-search">Buscar</button>
+      <button class="btn-search" (click)="feedService.setSearchTerm(searchInput.value); feedService.setInstitution(instSelect.value)">Buscar</button>
     </div>
   </div>
 
@@ -55,7 +53,6 @@
     <section class="feed-section">
       <div class="section-header">
         <h2>Grupos Mais Populares <span class="badge-destaque">em destaque</span></h2>
-        <button class="btn-link">Ver todos</button>
       </div>
 
       <div class="group-grid">

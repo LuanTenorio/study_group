@@ -216,9 +216,14 @@
 
 .group-grid {
   display: grid;
-  /* Redimensionamento automático dos cards do carrossel */
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 1.5rem;
+  /* min: 300px garante 2 colunas mesmo em janelas mais estreitas
+     (ex: navegador dividido com o editor, ~700-750px de largura).
+     max: 380px deixa o card crescer (fica maior que a versão anterior)
+     quando sobra espaço, sem esticar até virar 1 card gigante sozinho
+     na linha quando há poucos resultados. */
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 380px));
+  justify-content: start;
+  gap: 4.5rem;
 }
 
 .group-card {
