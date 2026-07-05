@@ -2,11 +2,12 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { FeedService } from '../feed/service/feed.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-area',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './area.component.html',
   styleUrl: './area.component.scss'
 })
@@ -27,11 +28,11 @@ export class AreaComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const slug = params.get('name') || '';
       
-      // sa o service para pegar o nome real (ex: "Biológicas")
+      // usa o service para pegar converter para o nome real da area
       const realName = this.feedService.getAreaNameBySlug(slug);
       this.areaName.set(realName);
       
-      // Limpa buscas anteriores e seta o filtro exclusivo para esta área
+      // limpa as buscas e aplica o filtro de area para que os grupos mostrados sejam apenas os da area selecionada
       this.feedService.clearFilters();
       this.feedService.setArea(realName);
     });
