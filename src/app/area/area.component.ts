@@ -2,11 +2,12 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { FeedService } from '../feed/service/feed.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-area',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './area.component.html',
   styleUrl: './area.component.scss'
 })
