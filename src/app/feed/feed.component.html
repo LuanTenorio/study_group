@@ -55,8 +55,9 @@
       </div>
 
       <div class="group-grid">
-        @for (group of popularGroups(); track group.title) {
-          <div class="group-card">
+        @for (group of popularGroups(); track group.id) {
+          <!-- Card transformado em link com o routerLink -->
+          <div class="group-card" [routerLink]="['/group', group.id]">
             <div class="card-content">
               <div class="tags">
                 <span class="tag-inst">{{ group.institution }}</span>
