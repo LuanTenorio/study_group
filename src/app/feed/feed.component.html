@@ -11,11 +11,13 @@
   <!-- barra de Pesquisa -->
   <div class="search-container">
     <div class="search-box">
+      <!-- 1. Busca por texto (Nome do Grupo) -->
       <div class="input-group">
         <i class="pi pi-search"></i>
-        <input #searchInput type="text" placeholder="Pesquisar por nome do grupo..." (keyup.enter)="feedService.setSearchTerm(searchInput.value)">
+        <input #searchInput type="text" placeholder="Nome do grupo..." (keyup.enter)="feedService.setSearchTerm(searchInput.value)">
       </div>
 
+      <!-- 2. Filtro de Instituição -->
       <div class="input-group">
         <i class="pi pi-building"></i>
         <select #instSelect (change)="feedService.setInstitution(instSelect.value)">
@@ -25,21 +27,29 @@
         </select>
       </div>
 
-      <button class="btn-search" (click)="feedService.setSearchTerm(searchInput.value); feedService.setInstitution(instSelect.value)">Buscar</button>
+      <!-- 3. Busca livre por Área/Tópico -->
+      <div class="input-group">
+        <i class="pi pi-book"></i>
+        <input #areaInput type="text" placeholder="Área ou tópico (ex: Cyber)..." (keyup.enter)="feedService.setArea(areaInput.value)">
+      </div>
+
+      <button class="btn-search" (click)="feedService.setSearchTerm(searchInput.value); feedService.setInstitution(instSelect.value); feedService.setArea(areaInput.value)">Buscar</button>
     </div>
   </div>
 
   <!-- conteúdo principal -->
   <main class="feed-main">
     
-    <!-- cards de áreas de conhecimento -->
+    <!-- cards de áreas de conhecimento (Top 8) -->
     <section class="feed-section">
       <div class="section-header">
-        <h2>Áreas de Conhecimento</h2>
+        <!-- ATUALIZADO: Título com o texto e o badge arredondado de cor diferente -->
+        <h2>Áreas <span class="badge-alta">em alta</span></h2>
       </div>
 
       <div class="category-grid">
-        @for (category of categories(); track category.name) {
+        <!-- Mantém apenas os 8 primeiros cards visuais -->
+        @for (category of feedService.categories() | slice:0:8; track category.name) {
           <div class="category-card" (click)="goToArea(category.name)">
             <i [class]="'pi ' + category.icon"></i>
             <span>{{ category.name }}</span>
@@ -48,15 +58,32 @@
       </div>
     </section>
 
-    <!-- grid de grupos Populares -->
+    <!-- grid de grupos -->
     <section class="feed-section">
-      <div class="section-header">
-        <h2>Grupos Populares <span class="badge-destaque">em destaque</span></h2>
+      
+      <!-- Header com Título Dinâmico -->
+      <div class="section-header" style="display: flex; justify-content: space-between; align-items: baseline;">
+        <h2>
+          <!-- Se houver busca, "Encontrados", senão "Populares" -->
+          @if (feedService.searchTerm() !== '' || feedService.institution() !== '' || feedService.areaFilter() !== '') {
+            Grupos Encontrados
+          } @else {
+            Grupos Populares <span class="badge-destaque">em destaque</span>
+          }
+        </h2>
+
+        <!-- Aviso sutil para o limite de 6 grupos -->
+        @if (feedService.searchTerm() === '' && feedService.institution() === '' && feedService.areaFilter() === '' && popularGroups().length > 6) {
+          <span style="color: #64748b; font-size: 0.9rem; font-weight: 500;">
+            Mostrando os Top 6 grupos. Use a busca para ver mais.
+          </span>
+        }
       </div>
 
       <div class="group-grid">
-        @for (group of popularGroups(); track group.id) {
-          <!-- Card transformado em link com o routerLink -->
+        <!-- Mostra tudo se tiver filtro, senão corta no índice 6 -->
+        @for (group of (feedService.searchTerm() !== '' || feedService.institution() !== '' || feedService.areaFilter() !== '' ? popularGroups() : (popularGroups() | slice:0:6)); track group.id) {
+          
           <div class="group-card" [routerLink]="['/group', group.id]">
             <div class="card-content">
               <div class="tags">
@@ -72,6 +99,11 @@
             <div class="card-footer">
               Ver detalhes &rarr;
             </div>
+          </div>
+
+        } @empty {
+          <div class="empty-state" style="text-align: center; padding: 3rem; color: #64748b; grid-column: 1 / -1;">
+            Nenhum grupo encontrado com esses filtros.
           </div>
         }
       </div>

@@ -33,7 +33,7 @@ export class FeedService {
   readonly areaFilter = signal('');
 
   // lista de grupos que será consumida pelos componentes
-  readonly groups = computed(() => {
+ readonly groups = computed(() => {
     const term = this.searchTerm().trim().toLowerCase();
     const inst = this.institution();
     const area = this.areaFilter().toLowerCase();
@@ -41,9 +41,11 @@ export class FeedService {
     return this._groups().filter(group => {
       const matchesTerm = !term || group.title.toLowerCase().includes(term);
       const matchesInstitution = !inst || group.institution.toLowerCase() === inst.toLowerCase();
-      const matchesArea = !area || group.area.toLowerCase() === area;
+      const matchesArea = !area || group.area.toLowerCase().includes(area);
       return matchesTerm && matchesInstitution && matchesArea;
-    });
+    })
+    // orderna os grupos filtrados por número de membros, do maior para o menor
+    .sort((a, b) => b.members - a.members); 
   });
 
   constructor() {
@@ -70,6 +72,7 @@ export class FeedService {
 
   // --- MÉTODOS DE FILTRO E AUXILIARES ---
 
+ 
   setSearchTerm(term: string): void {
     this.searchTerm.set(term);
   }
