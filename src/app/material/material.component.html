@@ -1,0 +1,40 @@
+@if (requestError()) {
+  <div class="detail-page detail-error">
+    <h1>Material não encontrado</h1>
+    <p>Não foi possível localizar este material. Volte para a lista de grupo e tente novamente.</p>
+    <button type="button" class="back-button" (click)="goBack()">Voltar</button>
+  </div>
+} @else if (isLoading()) {
+  <div class="detail-page detail-loading">
+    <p>Carregando material...</p>
+  </div>
+} @else {
+  <div class="detail-page">
+    <header class="detail-header">
+      <div>
+        <p class="detail-meta">Grupo: <span>{{ groupName() }}</span></p>
+        <h1 class="detail-title">Material</h1>
+      </div>
+      <button type="button" class="back-button" (click)="goBack()">Voltar</button>
+    </header>
+
+    <article class="detail-card">
+      <div class="detail-card-top">
+        <div>
+          <h2>{{ material()?.description }}</h2>
+          <p class="detail-filetype">Tipo: {{ material()?.file_type }}</p>
+        </div>
+      </div>
+
+      <div class="detail-body">
+        <p><strong>Enviado por:</strong> {{ material()?.user?.name }}</p>
+        <p><strong>Data de envio:</strong> {{ material()?.uploaded_at?.toLocaleDateString() }}</p>
+        <p><strong>Tamanho do arquivo:</strong> {{ formatBytes(material()?.file_size ?? 0) }}</p>
+      </div>
+
+      <div class="detail-content">
+        <p>Use esta tela para exibir informações do material. Se quiser, adicione um botão de download ou visualização do arquivo.</p>
+      </div>
+    </article>
+  </div>
+}
