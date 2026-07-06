@@ -1,0 +1,43 @@
+@if (requestError()) {
+  <div class="notice-page notice-error">
+    <h1>Aviso não encontrado</h1>
+    <p>Não foi possível localizar este aviso. Volte para a lista de grupo e tente novamente.</p>
+    <button type="button" class="back-button" (click)="goBack()">Voltar</button>
+  </div>
+} 
+@else if (isLoading()) {
+  <div class="notice-page notice-loading">
+    <p>Carregando aviso...</p>
+  </div>
+} 
+@else {
+  <div class="notice-page">
+    <header class="notice-header">
+      <div>
+        <p class="notice-meta">Grupo: <span>{{ groupName() }}</span></p>
+        <h1 class="notice-title">Aviso</h1>
+      </div>
+      <button type="button" class="back-button" (click)="goBack()">Voltar</button>
+    </header>
+
+    <article class="notice-card">
+      <div class="notice-card-top">
+        <div>
+          <h2>{{ notice()?.description }}</h2>
+        </div>
+      </div>
+
+      <div class="notice-body">
+        
+        <p><strong>Criado por:</strong> {{ notice()?.user?.name }}</p>
+        <p><strong>Data:</strong> {{ notice()?.created_at?.toLocaleDateString() }}</p>
+        <p><strong>Expira em:</strong> {{ notice()?.expiration_date?.toLocaleDateString() }}</p>
+        
+      </div>
+
+      <div class="notice-content">
+        <p>Esse aviso é apenas para exibir informações estáticas de um item de aviso. Caso queira, você pode incluir mais detalhes ou campos adicionais aqui.</p>
+      </div>
+    </article>
+  </div>
+}

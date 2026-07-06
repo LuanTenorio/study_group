@@ -79,13 +79,15 @@ export class GroupComponent implements OnInit {
   }
 
   openNotice(notice: Notice){
+    this.router.navigate(['/group', this.id, 'notice', notice.id]);
   }
   
   openMaterial(material: Material){
-    
+    this.router.navigate(['/group', this.id, 'material', material.id]);
   }
   
   openMeet(meet: Meet){
+    this.router.navigate(['/group', this.id, 'meet', meet.id]);
   }
 
   getMaterialIcon(material: Material): string{

@@ -1,0 +1,39 @@
+@if (requestError()) {
+  <div class="detail-page detail-error">
+    <h1>Encontro não encontrado</h1>
+    <p>Não foi possível localizar este encontro. Volte para a lista de grupo e tente novamente.</p>
+    <button type="button" class="back-button" (click)="goBack()">Voltar</button>
+  </div>
+} @else if (isLoading()) {
+  <div class="detail-page detail-loading">
+    <p>Carregando encontro...</p>
+  </div>
+} @else {
+  <div class="detail-page">
+    <header class="detail-header">
+      <div>
+        <p class="detail-meta">Grupo: <span>{{ groupName() }}</span></p>
+        <h1 class="detail-title">Encontro</h1>
+      </div>
+      <button type="button" class="back-button" (click)="goBack()">Voltar</button>
+    </header>
+
+    <article class="detail-card">
+      <div class="detail-card-top">
+        <div>
+          <h2>{{ meet()?.description }}</h2>
+          <p class="detail-filetype">Local: {{ meet()?.location }}</p>
+        </div>
+      </div>
+
+      <div class="detail-body">
+        <p><strong>Data e hora:</strong> {{ meet()?.date_time?.toLocaleString() }}</p>
+        <p><strong>Localização:</strong> {{ meet()?.location }}</p>
+      </div>
+
+      <div class="detail-content">
+        <p>Esse encontro é exibido como uma página de detalhe estática. Se quiser, adicione informações sobre participantes, link de videoconferência ou agenda.</p>
+      </div>
+    </article>
+  </div>
+}
