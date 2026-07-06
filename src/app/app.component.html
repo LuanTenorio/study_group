@@ -9,12 +9,28 @@
 
       <!-- botões de Autenticação -->
       <ng-template pTemplate="end">
-        <div class="auth-buttons">
-          <button class="btn-login" routerLink="/auth/login">Login</button>
-          <button class="btn-cadastro" routerLink="/cadastro">Cadastro</button>
-        </div>
+        @if (authService.currentUser(); as user) {
+          <div class="auth-buttons">
+            <span class="logged-user">
+              Olá, {{ user.name }}
+            </span>
+
+            <button class="btn-logout" type="button" (click)="authService.logout()">
+              Sair
+            </button>
+          </div>
+        } @else {
+          <div class="auth-buttons">
+            <button class="btn-login" routerLink="/auth/login">
+              Login
+            </button>
+
+            <button class="btn-cadastro" routerLink="/auth/register">
+              Cadastro
+            </button>
+          </div>
+        }
       </ng-template>
-      
     </p-menubar>
   </header>
 

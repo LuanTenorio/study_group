@@ -33,6 +33,8 @@ export class LoginComponent {
 
         this.authService.login(credentials).subscribe({
             next: (response) => {
+                this.authService.saveToken(response.accessToken)
+                this.authService.saveSession(response.user)
                 this.router.navigate(['/group', 1])
             },
             error: (err: HttpErrorResponse) => {
