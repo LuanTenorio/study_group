@@ -1,54 +1,77 @@
 <main class="login-page">
-  <section class="login-card">
-    <header class="login-header">
-      <h1 class="login-title">Entrar</h1>
+  <section class="hero-banner">
+    <div class="hero-content">
+      <span class="hero-badge">Área do estudante</span>
+      <h1>Bem-vindo de volta</h1>
+      <p>Entre para encontrar seus grupos, acompanhar encontros e continuar estudando com a sua comunidade.</p>
+    </div>
+  </section>
 
-      <p class="login-subtitle">
-        Acesse sua conta para continuar.
-      </p>
-    </header>
+  <section class="login-container">
+    <div class="login-card">
+      <header class="login-header">
+        <span class="card-badge">
+          <i class="pi pi-lock"></i>
+          Acesso seguro
+        </span>
 
-    <form
-      class="login-form"
-      [formGroup]="loginForm"
-      (ngSubmit)="onSubmit()">
+        <h2 class="login-title">Entrar na conta</h2>
 
-      <div class="form-field">
-        <label for="email">E-mail</label>
+        <p class="login-subtitle">
+          Use seu e-mail institucional ou pessoal para continuar.
+        </p>
+      </header>
 
-        <input
-          id="email"
-          type="email"
-          pInputText
-          formControlName="email"
-          autocomplete="email"
-          fluid />
-      </div>
+      <form
+        class="login-form"
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit()">
 
-      <div class="form-field">
-        <label for="password">Senha</label>
+        <div class="form-field">
+          <label for="email">E-mail</label>
 
-        <p-password
-          inputId="password"
-          formControlName="password"
-          [feedback]="false"
-          autocomplete="current-password"
-          fluid>
-        </p-password>
-      </div>
+          <div class="input-group">
+            <i class="pi pi-envelope"></i>
+            <input
+              id="email"
+              type="email"
+              pInputText
+              formControlName="email"
+              autocomplete="email"
+              placeholder="seu.email@exemplo.com"
+              fluid />
+          </div>
+        </div>
 
-      @if (requestError()) {
-        <p-message severity="error" variant="simple">
-          {{ requestError() }}
-        </p-message>
-      }
+        <div class="form-field">
+          <label for="password">Senha</label>
 
-      <div class="form-actions">
-        <p-button
-          type="submit"
-          label="Entrar">
-        </p-button>
-      </div>
-    </form>
+          <div class="input-group">
+            <i class="pi pi-key"></i>
+            <p-password
+              inputId="password"
+              formControlName="password"
+              [feedback]="false"
+              autocomplete="current-password"
+              placeholder="Digite sua senha"
+              fluid>
+            </p-password>
+          </div>
+        </div>
+
+        @if (requestError()) {
+          <p-message severity="error" variant="simple">
+            {{ requestError() }}
+          </p-message>
+        }
+
+        <div class="form-actions">
+          <p-button
+            type="submit"
+            label="Entrar">
+          </p-button>
+        </div>
+      </form>
+    </div>
   </section>
 </main>

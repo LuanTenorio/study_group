@@ -3,7 +3,7 @@
   width: 100%;
 }
 
-.login-page {
+.register-page {
   background-color: #f8fafc;
   min-height: 100vh;
   display: flex;
@@ -13,7 +13,7 @@
 
 .hero-banner {
   width: 100%;
-  min-height: 300px;
+  min-height: 320px;
   background-color: #0f172a;
   background-image: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
   display: flex;
@@ -24,7 +24,7 @@
 
 .hero-content {
   width: 100%;
-  max-width: 760px;
+  max-width: 800px;
   color: white;
   text-align: center;
 
@@ -60,7 +60,7 @@
   padding: 0.35rem 0.8rem;
 }
 
-.login-container {
+.register-container {
   width: 100%;
   max-width: 1400px;
   margin: -56px auto 0;
@@ -71,9 +71,9 @@
   justify-content: center;
 }
 
-.login-card {
+.register-card {
   width: 100%;
-  max-width: 460px;
+  max-width: 620px;
   padding: 1.5rem;
   border: 1px solid #e2e8f0;
   border-radius: 16px;
@@ -81,7 +81,7 @@
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-.login-header {
+.register-header {
   margin-bottom: 1.75rem;
 }
 
@@ -96,24 +96,30 @@
   }
 }
 
-.login-title {
+.register-title {
   margin: 1rem 0 0;
   color: #0f172a;
   font-size: 1.5rem;
   font-weight: 700;
 }
 
-.login-subtitle {
+.register-subtitle {
   margin: 0.5rem 0 0;
   color: #64748b;
   font-size: 0.95rem;
   line-height: 1.5;
 }
 
-.login-form {
+.register-form {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
 }
 
 .form-field {
@@ -139,14 +145,51 @@
     color: #94a3b8;
     z-index: 2;
   }
+
+  select {
+    width: 100%;
+    padding: 0.85rem 1rem 0.85rem 2.5rem;
+    border-radius: 8px;
+    border: 1px solid #f1f5f9;
+    background-color: #f8fafc;
+    color: #334155;
+    cursor: pointer;
+    font-size: 0.95rem;
+    outline: none;
+    appearance: none;
+    transition: all 0.2s;
+
+    &:focus {
+      background-color: white;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+  }
 }
 
 .form-actions {
   margin-top: 0.5rem;
 }
 
+.login-link {
+  margin: 1.25rem 0 0;
+  color: #64748b;
+  font-size: 0.9rem;
+  text-align: center;
+
+  a {
+    color: #2563eb;
+    font-weight: 700;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 ::ng-deep {
-  .login-form {
+  .register-form {
     .p-inputtext {
       width: 100%;
       padding: 0.85rem 1rem 0.85rem 2.5rem;
@@ -198,9 +241,9 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 700px) {
   .hero-banner {
-    min-height: 260px;
+    min-height: 280px;
     padding: 3rem 1rem 4.5rem;
   }
 
@@ -214,12 +257,16 @@
     }
   }
 
-  .login-container {
+  .register-container {
     margin-top: -48px;
     padding-bottom: 2rem;
   }
 
-  .login-card {
+  .register-card {
     padding: 1.25rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
   }
 }

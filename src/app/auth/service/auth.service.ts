@@ -1,9 +1,11 @@
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../../config/environment.dev"
-import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
-import { LoginRequest, LoginResponse } from "../interface/auth.interface";
+import { Inject, Injectable, PLATFORM_ID, signal } from "@angular/core";
+import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from "../interface/auth.interface";
 import { Observable } from "rxjs";
 import { isPlatformBrowser } from "@angular/common";
+import { User } from "../../user/interface/user.interface";
+import { Route, Router } from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
@@ -12,16 +14,30 @@ export class AuthService {
     private readonly path = "/auth"
     private readonly apiUrl = `${environment.apiUrl}${this.path}`;
     private readonly tokenKey = "acess_token";
+    private readonly userKey = "user";
+    private readonly _currentUser = signal<User | null>(null);
+
+    readonly currentUser = this._currentUser.asReadonly();
 
     constructor(
         private readonly http: HttpClient,
+        private readonly router: Router,
         @Inject(PLATFORM_ID) private readonly platformId: object
-    ) {}
+    ) {
+        this._currentUser.set(this.getStoredUser());
+    }
 
     login(credentials: LoginRequest): Observable<LoginResponse> {
         return this.http.post<LoginResponse>(
             `${this.apiUrl}/login`,
             credentials
+        );
+    }
+
+    register(data: RegisterRequest): Observable<RegisterResponse> {
+        return this.http.post<RegisterResponse>(
+            `${this.apiUrl}/register`,
+            data
         );
     }
 
@@ -39,9 +55,32 @@ export class AuthService {
         }
     }
 
+    saveSession(user: User): void {
+        if(isPlatformBrowser(this.platformId)) {
+            localStorage.setItem(this.userKey, JSON.stringify(user));
+        }
+
+        this._currentUser.set(user);
+
+    }
+
+    getStoredUser(): User | null {
+        if(!isPlatformBrowser(this.platformId)) {
+            return null;
+        }
+
+        const user = localStorage.getItem(this.userKey);
+        return user ? JSON.parse(user) : null;
+    }
+
     logout(): void {
         if(isPlatformBrowser(this.platformId)) {
             localStorage.removeItem(this.tokenKey);
+            localStorage.removeItem(this.userKey);
+
+            this._currentUser.set(null);
+
+            this.router.navigate(["/"]);
         }
     }
 

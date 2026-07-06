@@ -11,6 +11,7 @@ import { MessageModule } from 'primeng/message'
 @Component({
     selector: 'auth/login',
     templateUrl: './login.component.html',
+    styleUrl: './login.component.scss',
     imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule, MessageModule]
 })
 export class LoginComponent {
@@ -33,6 +34,7 @@ export class LoginComponent {
         this.authService.login(credentials).subscribe({
             next: (response) => {
                 this.authService.saveToken(response.accessToken)
+                this.authService.saveSession(response.user)
                 this.router.navigate(['/group', 1])
             },
             error: (err: HttpErrorResponse) => {
