@@ -1,0 +1,272 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.register-page {
+  background-color: #f8fafc;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: -2rem;
+}
+
+.hero-banner {
+  width: 100%;
+  min-height: 320px;
+  background-color: #0f172a;
+  background-image: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem 5rem;
+}
+
+.hero-content {
+  width: 100%;
+  max-width: 800px;
+  color: white;
+  text-align: center;
+
+  h1 {
+    margin: 0.85rem 0 1rem;
+    font-size: 2.5rem;
+    font-weight: 800;
+  }
+
+  p {
+    margin: 0;
+    color: #e0e7ff;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+}
+
+.hero-badge,
+.card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.hero-badge {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  color: #e0e7ff;
+  padding: 0.35rem 0.8rem;
+}
+
+.register-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: -56px auto 0;
+  padding: 0 1rem 4rem;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 620px;
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.register-header {
+  margin-bottom: 1.75rem;
+}
+
+.card-badge {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+
+  i {
+    font-size: 0.8rem;
+  }
+}
+
+.register-title {
+  margin: 1rem 0 0;
+  color: #0f172a;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.register-subtitle {
+  margin: 0.5rem 0 0;
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  label {
+    color: #0f172a;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  > i {
+    position: absolute;
+    left: 1rem;
+    color: #94a3b8;
+    z-index: 2;
+  }
+
+  select {
+    width: 100%;
+    padding: 0.85rem 1rem 0.85rem 2.5rem;
+    border-radius: 8px;
+    border: 1px solid #f1f5f9;
+    background-color: #f8fafc;
+    color: #334155;
+    cursor: pointer;
+    font-size: 0.95rem;
+    outline: none;
+    appearance: none;
+    transition: all 0.2s;
+
+    &:focus {
+      background-color: white;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+  }
+}
+
+.form-actions {
+  margin-top: 0.5rem;
+}
+
+.login-link {
+  margin: 1.25rem 0 0;
+  color: #64748b;
+  font-size: 0.9rem;
+  text-align: center;
+
+  a {
+    color: #2563eb;
+    font-weight: 700;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+::ng-deep {
+  .register-form {
+    .p-inputtext {
+      width: 100%;
+      padding: 0.85rem 1rem 0.85rem 2.5rem;
+      border-radius: 8px;
+      border: 1px solid #f1f5f9;
+      background-color: #f8fafc;
+      color: #334155;
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.2s;
+
+      &:focus {
+        background-color: white;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      }
+    }
+
+    .p-password,
+    .p-password-input {
+      width: 100%;
+    }
+
+    .p-password .p-inputtext {
+      padding-right: 3rem;
+    }
+
+    .p-button {
+      width: 100%;
+      justify-content: center;
+      background-color: #2563eb;
+      border-color: #2563eb;
+      color: white;
+      font-weight: 700;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+
+      &:hover {
+        background-color: #1d4ed8;
+        border-color: #1d4ed8;
+        transform: translateY(-1px);
+      }
+    }
+
+    .p-message {
+      border-radius: 8px;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .hero-banner {
+    min-height: 280px;
+    padding: 3rem 1rem 4.5rem;
+  }
+
+  .hero-content {
+    h1 {
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+  }
+
+  .register-container {
+    margin-top: -48px;
+    padding-bottom: 2rem;
+  }
+
+  .register-card {
+    padding: 1.25rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
