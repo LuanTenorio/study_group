@@ -1,0 +1,144 @@
+<main class="register-page">
+  <section class="hero-banner">
+    <div class="hero-content">
+      <span class="hero-badge">Nova conta</span>
+      <h1>Comece sua jornada de estudos</h1>
+      <p>Crie sua conta para participar de grupos, descobrir comunidades acadêmicas e acompanhar encontros.</p>
+    </div>
+  </section>
+
+  <section class="register-container">
+    <div class="register-card">
+      <header class="register-header">
+        <span class="card-badge">
+          <i class="pi pi-user-plus"></i>
+          Cadastro
+        </span>
+
+        <h2 class="register-title">Criar conta</h2>
+
+        <p class="register-subtitle">
+          Preencha seus dados para entrar na comunidade.
+        </p>
+      </header>
+
+      <form
+        class="register-form"
+        [formGroup]="registerForm"
+        (ngSubmit)="onSubmit()">
+
+        <div class="form-field">
+          <label for="name">Nome</label>
+
+          <div class="input-group">
+            <i class="pi pi-user"></i>
+            <input
+              id="name"
+              type="text"
+              pInputText
+              formControlName="name"
+              autocomplete="name"
+              placeholder="Seu nome completo"
+              fluid />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="email">E-mail</label>
+
+          <div class="input-group">
+            <i class="pi pi-envelope"></i>
+            <input
+              id="email"
+              type="email"
+              pInputText
+              formControlName="email"
+              autocomplete="email"
+              placeholder="seu.email@exemplo.com"
+              fluid />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="institution">Instituição</label>
+
+          <div class="input-group">
+            <i class="pi pi-building"></i>
+            <select
+              id="institution"
+              formControlName="institution_id"
+              [disabled]="isLoadingInstitutions()">
+              @if (isLoadingInstitutions()) {
+                <option value="">Carregando instituições...</option>
+              } @else {
+                @for (institution of institutions(); track institution.id) {
+                <option [value]="institution.id">{{ institution.name }}</option>
+                } @empty {
+                  <option value="">Nenhuma instituição encontrada</option>
+                }
+              }
+            </select>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="password">Senha</label>
+
+            <div class="input-group">
+              <i class="pi pi-key"></i>
+              <p-password
+                inputId="password"
+                formControlName="password"
+                [feedback]="false"
+                autocomplete="new-password"
+                placeholder="Mínimo 6 caracteres"
+                fluid>
+              </p-password>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="confirmPassword">Confirmar senha</label>
+
+            <div class="input-group">
+              <i class="pi pi-lock"></i>
+              <p-password
+                inputId="confirmPassword"
+                formControlName="confirmPassword"
+                [feedback]="false"
+                autocomplete="new-password"
+                placeholder="Repita sua senha"
+                fluid>
+              </p-password>
+            </div>
+          </div>
+        </div>
+
+        @if (registerForm.hasError('passwordsMismatch') && registerForm.get('confirmPassword')?.touched) {
+          <p-message severity="error" variant="simple">
+            As senhas não conferem.
+          </p-message>
+        }
+
+        @if (requestError()) {
+          <p-message severity="error" variant="simple">
+            {{ requestError() }}
+          </p-message>
+        }
+
+        <div class="form-actions">
+          <p-button
+            type="submit"
+            label="Criar conta">
+          </p-button>
+        </div>
+      </form>
+
+      <p class="login-link">
+        Já tem uma conta?
+        <a routerLink="/auth/login">Entrar</a>
+      </p>
+    </div>
+  </section>
+</main>

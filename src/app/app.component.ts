@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MenubarModule } from 'primeng/menubar';
+import { AuthService } from './auth/service/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,8 @@ import { MenubarModule } from 'primeng/menubar';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  readonly authService = inject(AuthService);
 
   menuItems = [
       {
