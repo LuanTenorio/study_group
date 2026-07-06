@@ -15,6 +15,10 @@ export class AppComponent {
 
   menuItems = [
       {
+        label: 'NOVO GRUPO',
+        routerLink: ['/create-group']
+      },
+      {
         label: 'GRUPOS',
         routerLink: ['/group', '1'] // TODO: Alterar para as rotas certas futuramente
       },
