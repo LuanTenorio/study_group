@@ -68,6 +68,9 @@ export class AuthService {
     logout(): void {
         if(isPlatformBrowser(this.platformId)) {
             localStorage.removeItem(this.tokenKey);
+            localStorage.removeItem(this.userKey);
+
+            this._currentUser.set(null);
         }
     }
 }

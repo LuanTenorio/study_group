@@ -15,7 +15,7 @@
               Olá, {{ user.name }}
             </span>
 
-            <button class="btn-logout" type="button">
+            <button class="btn-logout" type="button" (click)="authService.logout()">
               Sair
             </button>
           </div>
