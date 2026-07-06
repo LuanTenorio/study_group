@@ -17,6 +17,12 @@
         <p class="notice-meta">Grupo: <span>{{ groupName() }}</span></p>
         <h1 class="notice-title">Aviso</h1>
       </div>
+      @if (this.group()?.role == "owner") {
+        <div class="owner-controls">
+          <button type="button" class="icon-btn btn-edit" (click)="editNotice(); $event.stopPropagation()"><i class="pi pi-pencil"></i></button>
+          <button type="button" class="icon-btn btn-delete" (click)="deleteNotice(); $event.stopPropagation()"><i class="pi pi-trash"></i></button>
+        </div>
+      }
       <button type="button" class="back-button" (click)="goBack()">Voltar</button>
     </header>
 

@@ -32,7 +32,7 @@ export class GroupComponent implements OnInit {
   constructor(
     private readonly groupService: GroupService,
     private readonly route: ActivatedRoute,
-    private readonly router: Router
+    private readonly router: Router,
   ){}
 
   ngOnInit(): void {
@@ -87,6 +87,30 @@ export class GroupComponent implements OnInit {
   
   openMeet(meet: Meet){
     this.router.navigate(['/group', this.id, 'meet', meet.id]);
+  }
+
+  editNotice(notice: Notice) {
+    console.log('Editar notice', notice);
+  }
+
+  deleteNotice(notice: Notice) {
+    console.log('Remover notice', notice);
+  }
+
+  editMaterial(material: Material) {
+    console.log('Editar material', material);
+  }
+
+  deleteMaterial(material: Material) {
+    console.log('Remover material', material);
+  }
+
+  editMeet(meet: Meet) {
+    console.log('Editar meet', meet);
+  }
+
+  deleteMeet(meet: Meet) {
+    console.log('Remover meet', meet);
   }
 
   getMaterialIcon(material: Material): string{

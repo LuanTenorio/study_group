@@ -16,6 +16,7 @@ export class MeetComponent implements OnInit {
   groupId = 0;
   meetId = 0;
   meet: WritableSignal<Meet | undefined> = signal<Meet | undefined>(undefined);
+  group: WritableSignal<Group | undefined> = signal<Group | undefined>(undefined);
   groupName = signal('');
   isLoading = signal(true);
   requestError = signal(false);
@@ -42,6 +43,7 @@ export class MeetComponent implements OnInit {
 
       this.groupService.findGroup(this.groupId).subscribe({
         next: (groupData: Group) => {
+          this.group.set(groupData);
           this.groupName.set(groupData.name);
           const found = groupData.meets.find(item => item.id === this.meetId);
           if (found) {
@@ -62,5 +64,13 @@ export class MeetComponent implements OnInit {
 
   goBack(): void {
     this.router.navigate(['/group', this.groupId]);
+  }
+
+  editMeet() {
+    console.log('Editar meet', this.meet());
+  }
+
+  deleteMeet() {
+    console.log('Remover meet', this.meet());
   }
 }

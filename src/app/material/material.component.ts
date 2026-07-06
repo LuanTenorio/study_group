@@ -16,6 +16,7 @@ export class MaterialComponent implements OnInit {
   groupId = 0;
   materialId = 0;
   material: WritableSignal<Material | undefined> = signal<Material | undefined>(undefined);
+  group: WritableSignal<Group | undefined> = signal<Group | undefined>(undefined);
   groupName = signal('');
   isLoading = signal(true);
   requestError = signal(false);
@@ -42,6 +43,7 @@ export class MaterialComponent implements OnInit {
 
       this.groupService.findGroup(this.groupId).subscribe({
         next: (groupData: Group) => {
+          this.group.set(groupData);
           this.groupName.set(groupData.name);
           const found = groupData.materials.find(item => item.id === this.materialId);
           if (found) {
@@ -70,5 +72,13 @@ export class MaterialComponent implements OnInit {
     const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
+  }
+
+  editMaterial() {
+    console.log('Editar material', this.material());
+  }
+
+  deleteMaterial() {
+    console.log('Remover material', this.material());
   }
 }

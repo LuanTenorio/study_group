@@ -16,6 +16,7 @@ export class NoticeComponent implements OnInit {
   groupId = 0;
   noticeId = 0;
   notice: WritableSignal<Notice | undefined> = signal<Notice | undefined>(undefined);
+  group: WritableSignal<Group | undefined> = signal<Group | undefined>(undefined);
   groupName = signal('');
   isLoading = signal(true);
   requestError = signal(false);
@@ -42,6 +43,7 @@ export class NoticeComponent implements OnInit {
 
       this.groupService.findGroup(this.groupId).subscribe({
         next: (groupData: Group) => {
+          this.group.set(groupData);
           this.groupName.set(groupData.name);
 
           const notice = groupData.notices.find(item => item.id === this.noticeId);
@@ -63,5 +65,13 @@ export class NoticeComponent implements OnInit {
 
   goBack(): void {
     this.router.navigate(['/group', this.groupId]);
+  }
+
+  editNotice() {
+    console.log('Editar notice', this.notice());
+  }
+
+  deleteNotice() {
+    console.log('Remover notice', this.notice());
   }
 }
