@@ -73,15 +73,18 @@ export class AuthService {
         return user ? JSON.parse(user) : null;
     }
 
-    logout(): void {
+    clearSession(): void {
         if(isPlatformBrowser(this.platformId)) {
             localStorage.removeItem(this.tokenKey);
             localStorage.removeItem(this.userKey);
-
-            this._currentUser.set(null);
-
-            this.router.navigate(["/"]);
         }
+
+        this._currentUser.set(null);
+    }
+
+    logout(): void {
+        this.clearSession();
+        this.router.navigate(["/auth/login"]);
     }
 
     isAuthenticated(): boolean {
