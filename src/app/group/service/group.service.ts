@@ -36,4 +36,8 @@ export class GroupService {
     return this.http.get<Area[]>(`${environment.apiUrl}/area`)
   }
 
+  delete(id: number){
+    return this.http.delete(`${this.apiUrl}/${id}`)
+  }
+
 }

@@ -64,6 +64,22 @@
       </p-accordion-panel>
   
     </p-accordion>
+
+    @if (this.group()?.role == "owner") {
+      <div class="actions-footer">
+        <button 
+          type="button" 
+          pButton 
+          icon="pi pi-trash" 
+          label="Deletar" 
+          severity="danger" 
+          [outlined]="true" 
+          (click)="delete()">
+        </button>
+      </div>
+    }
+
+    <p-confirmDialog appendTo="body" />
   </main>
   </div>
 }
