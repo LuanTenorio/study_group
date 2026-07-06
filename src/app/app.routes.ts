@@ -17,7 +17,7 @@ export const routes: Routes = [
             { path: "create-group", component: FormGroupComponent },
             { path: 'area/:name', component: AreaComponent },
             { path: "group/:id", component: GroupComponent },
-            { path: "profile", component: ProfileComponent}
+            { path: "profile", component: ProfileComponent},
             { path: '', component: FeedComponent }
         ]
     }

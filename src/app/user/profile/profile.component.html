@@ -1,4 +1,6 @@
 <main class="profile-page">
+  <p-confirmDialog appendTo="body"></p-confirmDialog>
+
   <section class="profile-container">
     <div class="profile-card">
       <header class="profile-header">
@@ -90,7 +92,24 @@
             type="submit"
             label="Salvar alteracoes"
             [loading]="isSaving()"
-            [disabled]="isLoadingInstitutions()">
+            [disabled]="isLoadingInstitutions() || isDeleting()">
+          </p-button>
+        </div>
+
+        <div class="danger-zone">
+          <div>
+            <h2>Excluir conta</h2>
+            <p>Remove sua conta e encerra a sessao neste dispositivo.</p>
+          </div>
+
+          <p-button
+            type="button"
+            label="Excluir conta"
+            severity="danger"
+            [outlined]="true"
+            [loading]="isDeleting()"
+            [disabled]="isSaving()"
+            (onClick)="confirmDeleteAccount()">
           </p-button>
         </div>
       </form>
