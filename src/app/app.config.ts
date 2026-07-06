@@ -8,6 +8,7 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { AuthTokenInterceptor } from './area/interceptor/authToken.interceptor';
+import { MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,6 +24,7 @@ export const appConfig: ApplicationConfig = {
           darkModeSelector: 'none'
         } }}),
     provideHttpClient(withFetch()),
-    provideAnimations()
+    provideAnimations(),
+    MessageService
   ]
 };
