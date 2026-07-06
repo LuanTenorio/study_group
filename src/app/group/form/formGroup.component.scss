@@ -1,0 +1,126 @@
+.form-container {
+  max-width: 640px; // Reduzido ligeiramente por ter menos campos
+  margin: 0 auto;
+  padding: 1rem 0 3rem 0;
+}
+
+.form-header {
+  margin-bottom: 2rem;
+
+  .breadcrumb {
+    margin-bottom: 1rem;
+    
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: var(--accent-blue);
+      }
+    }
+  }
+
+  .page-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .page-subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+}
+
+.form-card {
+  background-color: var(--bg-surface);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -2px rgba(0, 0, 0, 0.02);
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+
+  .field-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+
+    .required {
+      color: #e11d48;
+      margin-left: 0.1rem;
+    }
+  }
+
+  ::ng-deep {
+    input, .p-select {
+      width: 100%;
+      border-radius: 8px;
+      border-color: #cbd5e1;
+      transition: all 0.2s ease;
+
+      &:enabled:focus, &:enabled:hover {
+        border-color: var(--accent-blue);
+      }
+    }
+
+    .ng-invalid.ng-dirty {
+      input, .p-select {
+        border-color: #f43f5e;
+      }
+    }
+  }
+
+  .error-message {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: #e11d48;
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+    font-weight: 500;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f1f5f9;
+
+  ::ng-deep .p-button {
+    border-radius: 8px;
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 640px) {
+  .form-card {
+    padding: 1.5rem;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    
+    ::ng-deep .p-button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
