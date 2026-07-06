@@ -1,7 +1,7 @@
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { EMPTY, Observable } from 'rxjs';
-import { AuthService } from '../../auth/service/auth.service';
+import { AuthService } from '../service/auth.service';
 import { isPlatformBrowser } from '@angular/common';
 
 @Injectable()

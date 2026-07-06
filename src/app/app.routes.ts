@@ -26,6 +26,7 @@ export const routes: Routes = [
         canActivate: [authGuard],
         children: [
             { path: "create-group", component: FormGroupComponent },
+            { path: "edit-group/:id", component: FormGroupComponent },
             { path: 'area/:name', component: AreaComponent },
             { path: "group/:id", component: GroupComponent },
             { path: "profile", component: ProfileComponent},

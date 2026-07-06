@@ -1,3 +1,4 @@
+import { Area } from "../../area/interface/area.interface"
 import { Comment } from "../../comment/interface/comment.interface"
 import { Material } from "../../material/interface/material.interface"
 import { Meet } from "../../meet/interface/meet.interface"
@@ -9,6 +10,7 @@ export interface Group {
     creation_date: Date 
     role: string
 
+    areas: Area[]
     comments: Comment[]
     notices: Notice[]
     meets: Meet[]
