@@ -11,6 +11,7 @@ import { MessageModule } from 'primeng/message'
 @Component({
     selector: 'auth/login',
     templateUrl: './login.component.html',
+    styleUrl: './login.component.scss',
     imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule, MessageModule]
 })
 export class LoginComponent {
