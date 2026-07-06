@@ -44,4 +44,27 @@ export class AuthService {
             localStorage.removeItem(this.tokenKey);
         }
     }
+
+    isAuthenticated(): boolean {
+        if (!isPlatformBrowser(this.platformId)) 
+            return false;
+
+        const token = localStorage.getItem(this.tokenKey);
+        if (!token) 
+            return false;
+
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const isExpired = Date.now() >= (payload.exp * 1000);
+
+            if(!isExpired) 
+                return true;
+            
+            this.logout();
+            return false;
+        } catch (e) {
+            this.logout();
+            return false;
+        }
+  }
 }
