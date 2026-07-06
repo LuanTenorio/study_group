@@ -40,4 +40,8 @@ export class GroupService {
     return this.http.delete(`${this.apiUrl}/${id}`)
   }
 
+  update(id: number, data: CreateGroup){
+    return this.http.patch(`${this.apiUrl}/${id}`, data)
+  }
+
 }

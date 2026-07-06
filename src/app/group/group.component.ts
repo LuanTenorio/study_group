@@ -16,7 +16,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
   selector: 'app-group',
   standalone: true,
   imports: [CommonModule, AccordionModule, RouterModule, ButtonModule, ConfirmDialogModule],
-  providers: [ConfirmationService, MessageService],
+  providers: [ConfirmationService],
   templateUrl: './group.component.html',
   styleUrl: './group.component.scss'
 })
@@ -45,7 +45,6 @@ export class GroupComponent implements OnInit {
           this.group.set(groupData);
         },
         error: (err: HttpErrorResponse) => {
-          console.error('Erro ao buscar o grupo:', err)
           this.requestError.update(v => true)
           if(err.status == 401){
             this.messageService.add({ severity: 'error', summary: 'Não inscrito', detail: 'Você não está inscrito nesse grupo', life: 5000 })
@@ -79,13 +78,15 @@ export class GroupComponent implements OnInit {
   }
 
   openNotice(notice: Notice){
+    this.router.navigate(['/group', this.id, 'notice', notice.id]);
   }
   
   openMaterial(material: Material){
-    
+    this.router.navigate(['/group', this.id, 'material', material.id]);
   }
   
   openMeet(meet: Meet){
+    this.router.navigate(['/group', this.id, 'meet', meet.id]);
   }
 
   getMaterialIcon(material: Material): string{
