@@ -11,9 +11,9 @@
       <ng-template pTemplate="end">
         @if (authService.currentUser(); as user) {
           <div class="auth-buttons">
-            <span class="logged-user">
+            <button class="logged-user" type="button" routerLink="/profile">
               Olá, {{ user.name }}
-            </span>
+            </button>
 
             <button class="btn-logout" type="button" (click)="authService.logout()">
               Sair

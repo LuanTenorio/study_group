@@ -1,0 +1,99 @@
+<main class="profile-page">
+  <section class="profile-container">
+    <div class="profile-card">
+      <header class="profile-header">
+        <span class="card-badge">
+          <i class="pi pi-user-edit"></i>
+          Perfil
+        </span>
+
+        <h1 class="profile-title">Editar perfil</h1>
+
+        <p class="profile-subtitle">
+          Atualize seus dados principais da conta.
+        </p>
+      </header>
+
+      <form
+        class="profile-form"
+        [formGroup]="profileForm"
+        (ngSubmit)="onSubmit()">
+
+        <div class="form-field">
+          <label for="name">Nome</label>
+
+          <div class="input-group">
+            <i class="pi pi-user"></i>
+            <input
+              id="name"
+              type="text"
+              pInputText
+              formControlName="name"
+              autocomplete="name"
+              placeholder="Seu nome completo"
+              fluid />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="email">E-mail</label>
+
+          <div class="input-group">
+            <i class="pi pi-envelope"></i>
+            <input
+              id="email"
+              type="email"
+              pInputText
+              formControlName="email"
+              autocomplete="email"
+              placeholder="seu.email@exemplo.com"
+              fluid />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="institution">Instituicao</label>
+
+          <div class="input-group">
+            <i class="pi pi-building"></i>
+            <select
+              id="institution"
+              formControlName="institution_id"
+              [disabled]="isLoadingInstitutions()">
+              @if (isLoadingInstitutions()) {
+                <option value="">Carregando instituicoes...</option>
+              } @else {
+                @for (institution of institutions(); track institution.id) {
+                  <option [value]="institution.id">{{ institution.name }}</option>
+                } @empty {
+                  <option value="">Nenhuma instituicao encontrada</option>
+                }
+              }
+            </select>
+          </div>
+        </div>
+
+        @if (successMessage()) {
+          <p-message severity="success" variant="simple">
+            {{ successMessage() }}
+          </p-message>
+        }
+
+        @if (requestError()) {
+          <p-message severity="error" variant="simple">
+            {{ requestError() }}
+          </p-message>
+        }
+
+        <div class="form-actions">
+          <p-button
+            type="submit"
+            label="Salvar alteracoes"
+            [loading]="isSaving()"
+            [disabled]="isLoadingInstitutions()">
+          </p-button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
