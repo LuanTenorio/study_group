@@ -1,20 +1,19 @@
 <div class="form-container">
-  <!-- Cabeçalho -->
   <header class="form-header">
     <div class="breadcrumb">
       <a routerLink="/" class="back-link">
         <i class="pi pi-arrow-left"></i> Voltar aos Grupos
       </a>
     </div>
-    <h1 class="page-title">Criar Novo Grupo de Estudos</h1>
-    <p class="page-subtitle">Dê um nome e selecione a área de conhecimento para começar.</p>
+    <h1 class="page-title">{{ isEditMode() ? 'Editar Grupo de Estudos' : 'Criar Novo Grupo de Estudos' }}</h1>
+    <p class="page-subtitle">
+      {{ isEditMode() ? 'Atualize o nome e as áreas de conhecimento vinculadas a este grupo.' : 'Dê um nome e selecione a área de conhecimento para começar.' }}
+    </p>
   </header>
 
-  <!-- Cartão do Formulário -->
   <main class="form-card">
     <form [formGroup]="groupForm" (ngSubmit)="onSubmit()">
       
-      <!-- Campo 1: Nome do Grupo -->
       <div class="field-group">
         <label for="name" class="field-label">Nome do Grupo <span class="required">*</span></label>
         <input 
@@ -34,41 +33,43 @@
         }
       </div>
 
-      <!-- Campo 2: Área de Conhecimento -->
       <div class="field-group">
-        <label for="area" class="field-label">Área de Conhecimento <span class="required">*</span></label>
-        <p-select 
-          id="area" 
-          [options]="areas()" 
-          formControlName="areaId" 
-          placeholder="Selecione a área principal"
-          optionLabel="label" 
-          optionValue="value"
-          appendTo="body"
-          styleClass="w-full"
-          [class.ng-invalid]="isFieldInvalid('areaId')">
-        </p-select>
-        
-        @if (isFieldInvalid('area')) {
+        <label for="areas" class="field-label">Área de Conhecimento <span class="required">*</span></label>
+          <p-multiSelect
+            id="areas"
+            formControlName="areas"
+            [options]="areas()"
+            optionLabel="name"
+            display="chip"
+            placeholder="Selecione uma ou mais áreas..."
+            [showClear]="true"
+            [filter]="true"
+            filterPlaceholder="Buscar área..."
+            emptyFilterMessage="Nenhuma área encontrada"
+            styleClass="w-full">
+          </p-multiSelect>
+
+          @if (isFieldInvalid('areas')) {
           <small class="error-message">
-            <i class="pi pi-exclamation-circle"></i> Selecione uma área de conhecimento.
+            <i class="pi pi-exclamation-circle"></i> 
+            Selecione pelo menos uma área de conhecimento para o grupo.
           </small>
         }
       </div>
 
-      <!-- Ações do Formulário -->
       <div class="form-actions">
         <p-button 
           label="Cancelar" 
           severity="secondary" 
           [outlined]="true" 
-          routerLink="/" 
+          [routerLink]="isEditMode() ? ['/group', groupId] : '/'" 
           type="button">
         </p-button>
         
+        <!-- Rótulo e ícone do botão mudam automaticamente -->
         <p-button 
-          label="Criar Grupo" 
-          icon="pi pi-check" 
+          [label]="isEditMode() ? 'Salvar Alterações' : 'Criar Grupo'" 
+          [icon]="isEditMode() ? 'pi pi-save' : 'pi pi-check'" 
           type="submit" 
           [loading]="isSubmitting()"
           [disabled]="groupForm.invalid && groupForm.touched">
