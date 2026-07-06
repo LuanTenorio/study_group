@@ -7,6 +7,7 @@ export interface Group {
     id: number
     name: string
     creation_date: Date 
+    role: string
 
     comments: Comment[]
     notices: Notice[]

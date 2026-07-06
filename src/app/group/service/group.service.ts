@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../config/environment.dev';
 import { Group } from '../interface/group.interface';
 import { map } from 'rxjs';
+import { Area } from '../../area/interface/area.interface';
+import { CreateGroup } from '../interface/create-group.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +26,18 @@ export class GroupService {
 
       return v
     }))
+  }
+
+  create(data: CreateGroup){
+    return this.http.post(this.apiUrl, data);
+  }
+
+  getAreas(){
+    return this.http.get<Area[]>(`${environment.apiUrl}/area`)
+  }
+
+  delete(id: number){
+    return this.http.delete(`${this.apiUrl}/${id}`)
   }
 
 }
