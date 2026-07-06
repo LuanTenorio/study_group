@@ -5,6 +5,7 @@ import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from "
 import { Observable } from "rxjs";
 import { isPlatformBrowser } from "@angular/common";
 import { User } from "../../user/interface/user.interface";
+import { Route, Router } from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
@@ -20,8 +21,11 @@ export class AuthService {
 
     constructor(
         private readonly http: HttpClient,
+        private readonly router: Router,
         @Inject(PLATFORM_ID) private readonly platformId: object
-    ) {}
+    ) {
+        this._currentUser.set(this.getStoredUser());
+    }
 
     login(credentials: LoginRequest): Observable<LoginResponse> {
         return this.http.post<LoginResponse>(
@@ -56,11 +60,15 @@ export class AuthService {
             localStorage.setItem(this.userKey, JSON.stringify(user));
         }
 
-        this._currentUser.set(this.getStoredUser());
+        this._currentUser.set(user);
 
     }
 
     getStoredUser(): User | null {
+        if(!isPlatformBrowser(this.platformId)) {
+            return null;
+        }
+
         const user = localStorage.getItem(this.userKey);
         return user ? JSON.parse(user) : null;
     }
@@ -71,6 +79,8 @@ export class AuthService {
             localStorage.removeItem(this.userKey);
 
             this._currentUser.set(null);
+
+            this.router.navigate(["/"]);
         }
     }
 }

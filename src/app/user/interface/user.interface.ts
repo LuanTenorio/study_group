@@ -4,3 +4,9 @@ export interface User {
     name: string
     email: string
 }
+
+export interface UpdateUserRequest {
+    name: string
+    email: string
+    institution_id: number
+}
