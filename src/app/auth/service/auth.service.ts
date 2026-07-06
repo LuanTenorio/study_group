@@ -47,7 +47,7 @@ export class AuthService {
 
     isAuthenticated(): boolean {
         if (!isPlatformBrowser(this.platformId)) 
-            return false;
+            return true;
 
         const token = localStorage.getItem(this.tokenKey);
         if (!token) 
