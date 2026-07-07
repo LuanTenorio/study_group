@@ -17,8 +17,8 @@ import { GroupPreview } from '../interface/group_preview.interface';
     RouterModule,
     ButtonModule
   ],
-  templateUrl: './enrollGroup.component.html',
-  styleUrl: './enrollGroup.component.scss'
+  templateUrl: './enrollgroup.component.html',
+  styleUrl: './enrollgroup.component.scss'
 })
 export class EnrollGroupComponent implements OnInit {
 
