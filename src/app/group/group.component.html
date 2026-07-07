@@ -81,6 +81,16 @@
         <button 
           type="button" 
           pButton 
+          icon="pi pi-upload" 
+          label="Novo Material" 
+          severity="success" 
+          [outlined]="true" 
+          [routerLink]="['/group', this.group()?.id, 'material', 'create']">
+        </button>
+
+        <button 
+          type="button" 
+          pButton 
           icon="pi pi-pencil" 
           label="Editar" 
           severity="info" 

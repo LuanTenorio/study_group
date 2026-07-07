@@ -39,8 +39,13 @@
       </div>
 
       <div class="detail-content">
-        <p>Use esta tela para exibir informações do material. Se quiser, adicione um botão de download ou visualização do arquivo.</p>
+        <button
+            type="button"
+            (click)="downloadMaterialPdf()">
+            Abrir arquivo
+        </button>
       </div>
     </article>
+    <p-confirmDialog appendTo="body" />
   </div>
 }

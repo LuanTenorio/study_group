@@ -32,7 +32,7 @@ export class NoticeService {
   }
 
   delete(id: number, groupId: number){
-    return this.http.delete(`${this.apiUrl}/${id}/group/${groupId}`)
+    return this.http.delete(`${this.apiUrl}/${id}/group/${groupId}/notice/delete`)
   }
 
   update(id: number, data: UpdateNotice){
