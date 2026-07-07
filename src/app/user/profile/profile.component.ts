@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { AuthService } from '../../auth/service/auth.service';
@@ -15,13 +17,15 @@ import { UserService } from '../service/user.service';
     selector: 'user-profile',
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.scss',
-    imports: [ReactiveFormsModule, ButtonModule, InputTextModule, MessageModule]
+    imports: [ReactiveFormsModule, ButtonModule, ConfirmDialogModule, InputTextModule, MessageModule],
+    providers: [ConfirmationService]
 })
 export class ProfileComponent implements OnInit {
     readonly profileForm: FormGroup;
     readonly institutions = signal<Institution[]>([]);
     readonly isLoadingInstitutions = signal(true);
     readonly isSaving = signal(false);
+    readonly isDeleting = signal(false);
     readonly requestError = signal('');
     readonly successMessage = signal('');
 
@@ -30,6 +34,7 @@ export class ProfileComponent implements OnInit {
         private readonly authService: AuthService,
         private readonly userService: UserService,
         private readonly institutionService: InstitutionService,
+        private readonly confirmationService: ConfirmationService,
         private readonly router: Router
     ) {
         this.profileForm = this.formBuilder.nonNullable.group({
@@ -94,20 +99,68 @@ export class ProfileComponent implements OnInit {
             },
             error: (err: HttpErrorResponse) => {
                 this.isSaving.set(false);
-
-                if (err.status === 409) {
-                    this.requestError.set('Este e-mail ja esta em uso.');
-                    return;
-                }
-
-                if (err.status === 404) {
-                    this.requestError.set('Usuario ou instituicao nao encontrado.');
-                    return;
-                }
-
-                this.requestError.set('Nao foi possivel atualizar o perfil. Tente novamente mais tarde.');
+                this.requestError.set(this.getRequestErrorMessage(
+                    err,
+                    'Nao foi possivel atualizar o perfil. Tente novamente mais tarde.'
+                ));
             }
         });
+    }
+
+    confirmDeleteAccount(): void {
+        this.requestError.set('');
+        this.successMessage.set('');
+
+        this.confirmationService.confirm({
+            message: 'Tem certeza que deseja excluir sua conta? Esta acao nao pode ser desfeita.',
+            header: 'Excluir conta',
+            icon: 'pi pi-exclamation-triangle',
+            acceptLabel: 'Sim, excluir',
+            rejectLabel: 'Cancelar',
+            acceptButtonStyleClass: 'p-button-danger',
+            rejectButtonStyleClass: 'p-button-secondary p-button-outlined',
+            accept: () => this.deleteAccount()
+        });
+    }
+
+    private deleteAccount(): void {
+        this.isDeleting.set(true);
+
+        this.userService.deleteMe().subscribe({
+            next: () => {
+                this.authService.clearSession();
+                this.router.navigate(['/auth/login']);
+            },
+            error: (err: HttpErrorResponse) => {
+                this.isDeleting.set(false);
+                this.requestError.set(this.getRequestErrorMessage(
+                    err,
+                    'Nao foi possivel excluir a conta. Tente novamente mais tarde.'
+                ));
+            }
+        });
+    }
+
+    private getRequestErrorMessage(err: HttpErrorResponse, fallbackMessage: string): string {
+        const apiMessage = this.getApiErrorMessage(err);
+
+        if (err.status === 409) {
+            return apiMessage || 'Conflito ao processar a solicitacao. Verifique os dados e tente novamente.';
+        }
+
+        if (err.status === 404) {
+            return apiMessage || 'Usuario ou instituicao nao encontrado.';
+        }
+
+        return apiMessage || fallbackMessage;
+    }
+
+    private getApiErrorMessage(err: HttpErrorResponse): string {
+        if (typeof err.error === 'string') {
+            return err.error;
+        }
+
+        return err.error?.message || err.error?.error || '';
     }
 
     private loadInstitutions(): void {

@@ -115,6 +115,30 @@
   margin-top: 0.5rem;
 }
 
+.danger-zone {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #e2e8f0;
+
+  h2 {
+    margin: 0;
+    color: #991b1b;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  p {
+    margin: 0.25rem 0 0;
+    color: #64748b;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+}
+
 ::ng-deep {
   .profile-form {
     .p-inputtext {
@@ -135,7 +159,7 @@
       }
     }
 
-    .p-button {
+    .form-actions .p-button {
       width: 100%;
       justify-content: center;
       background-color: #2563eb;
@@ -153,6 +177,12 @@
       }
     }
 
+    .danger-zone .p-button {
+      white-space: nowrap;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
     .p-message {
       border-radius: 8px;
     }
@@ -166,5 +196,10 @@
 
   .profile-card {
     padding: 1.25rem;
+  }
+
+  .danger-zone {
+    align-items: stretch;
+    flex-direction: column;
   }
 }

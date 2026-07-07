@@ -1,0 +1,81 @@
+<div class="form-container">
+  <header class="form-header">
+    <div class="breadcrumb">
+      <a routerLink="/" class="back-link">
+        <i class="pi pi-arrow-left"></i> Voltar aos Grupos
+      </a>
+    </div>
+    <h1 class="page-title">{{ isEditMode() ? 'Editar Grupo de Estudos' : 'Criar Novo Grupo de Estudos' }}</h1>
+    <p class="page-subtitle">
+      {{ isEditMode() ? 'Atualize o nome e as áreas de conhecimento vinculadas a este grupo.' : 'Dê um nome e selecione a área de conhecimento para começar.' }}
+    </p>
+  </header>
+
+  <main class="form-card">
+    <form [formGroup]="groupForm" (ngSubmit)="onSubmit()">
+      
+      <div class="field-group">
+        <label for="name" class="field-label">Nome do Grupo <span class="required">*</span></label>
+        <input 
+          id="name" 
+          type="text" 
+          pInputText 
+          formControlName="name" 
+          placeholder="Ex: Grupo de Estudos em Algoritmos Avançados"
+          [class.ng-invalid]="isFieldInvalid('name')" 
+          [class.ng-dirty]="isFieldInvalid('name')" />
+        
+        @if (isFieldInvalid('name')) {
+          <small class="error-message">
+            <i class="pi pi-exclamation-circle"></i> 
+            O nome do grupo é obrigatório (mínimo de 4 caracteres).
+          </small>
+        }
+      </div>
+
+      <div class="field-group">
+        <label for="areas" class="field-label">Área de Conhecimento <span class="required">*</span></label>
+          <p-multiSelect
+            id="areas"
+            formControlName="areas"
+            [options]="areas()"
+            optionLabel="name"
+            display="chip"
+            placeholder="Selecione uma ou mais áreas..."
+            [showClear]="true"
+            [filter]="true"
+            filterPlaceholder="Buscar área..."
+            emptyFilterMessage="Nenhuma área encontrada"
+            styleClass="w-full">
+          </p-multiSelect>
+
+          @if (isFieldInvalid('areas')) {
+          <small class="error-message">
+            <i class="pi pi-exclamation-circle"></i> 
+            Selecione pelo menos uma área de conhecimento para o grupo.
+          </small>
+        }
+      </div>
+
+      <div class="form-actions">
+        <p-button 
+          label="Cancelar" 
+          severity="secondary" 
+          [outlined]="true" 
+          [routerLink]="isEditMode() ? ['/group', groupId] : '/'" 
+          type="button">
+        </p-button>
+        
+        <!-- Rótulo e ícone do botão mudam automaticamente -->
+        <p-button 
+          [label]="isEditMode() ? 'Salvar Alterações' : 'Criar Grupo'" 
+          [icon]="isEditMode() ? 'pi pi-save' : 'pi pi-check'" 
+          type="submit" 
+          [loading]="isSubmitting()"
+          [disabled]="groupForm.invalid && groupForm.touched">
+        </p-button>
+      </div>
+
+    </form>
+  </main>
+</div>

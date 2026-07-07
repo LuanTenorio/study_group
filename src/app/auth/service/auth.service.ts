@@ -73,14 +73,40 @@ export class AuthService {
         return user ? JSON.parse(user) : null;
     }
 
-    logout(): void {
+    clearSession(): void {
         if(isPlatformBrowser(this.platformId)) {
             localStorage.removeItem(this.tokenKey);
             localStorage.removeItem(this.userKey);
-
-            this._currentUser.set(null);
-
-            this.router.navigate(["/"]);
         }
+
+        this._currentUser.set(null);
     }
+
+    logout(): void {
+        this.clearSession();
+        this.router.navigate(["/auth/login"]);
+    }
+
+    isAuthenticated(): boolean {
+        if (!isPlatformBrowser(this.platformId)) 
+            return true;
+
+        const token = localStorage.getItem(this.tokenKey);
+        if (!token) 
+            return false;
+
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const isExpired = Date.now() >= (payload.exp * 1000);
+
+            if(!isExpired) 
+                return true;
+            
+            this.logout();
+            return false;
+        } catch (e) {
+            this.logout();
+            return false;
+        }
+  }
 }

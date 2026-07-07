@@ -1,7 +1,7 @@
-import { Component, signal, OnInit } from '@angular/core';
+import { Component, signal, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-// Ajuste o caminho de importação consoante a localização real da sua interface no projeto
+import { HttpClient } from '@angular/common/http';
 import { group_card } from '../feed/interface/group_card.interface';
 
 @Component({
@@ -16,20 +16,30 @@ export class MyGroupsComponent implements OnInit {
   // Signal para guardar os grupos do utilizador
   myGroups = signal<group_card[]>([]);
 
+  // Injeção do HttpClient para aceder ao backend
+  private readonly http = inject(HttpClient);
+
+  // ID do utilizador (mockado para testes até termos o sistema de login pronto)
+  private readonly currentUserId = 1;
+
   ngOnInit() {
-    // 💡 TODO: Futuramente, fará a requisição HTTP aqui (ex: this.http.get('/groups/me'))
+    this.loadMyGroups();
+  }
+
+  loadMyGroups() {
+    // Chamada à nova rota que vamos criar no backend NestJS
+    const apiUrl = `http://localhost:3000/group/my-groups/${this.currentUserId}`;
     
-    // Dados mockados para poder testar o visual. 
-    // Para testar a mensagem de "Nenhum grupo", basta deixar o array vazio: this.myGroups.set([]);
-    this.myGroups.set([
-      {
-         id: 1,
-         title: 'Estudos de SQL Avançado',
-         institution: 'UnB',
-         area: 'Banco de Dados',
-         members: 2,
-         nextMeeting: '15/07, 14:00'
+    this.http.get<group_card[]>(apiUrl).subscribe({
+      next: (dados) => {
+        this.myGroups.set(dados);
+      },
+      error: (erro) => {
+        console.error('Erro ao buscar os meus grupos:', erro);
+        // Se houver erro ou não encontrar nada, garantimos que a lista fica vazia
+        // para exibir o "Empty State" bonitinho que criámos no HTML
+        this.myGroups.set([]);
       }
-    ]);
+    });
   }
 }
