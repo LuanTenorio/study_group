@@ -10,27 +10,27 @@ import { ProfileComponent } from './user/profile/profile.component';
 import { NoticeComponent } from './notice/notice.component';
 import { MaterialComponent } from './material/material.component';
 import { MeetComponent } from './meet/meet.component';
+import { NoticeFormComponent } from './notice/form/formNotice.component';
 
 export const routes: Routes = [
     { path: '', component: FeedComponent },
 
     { path: 'area/:name', component: AreaComponent },
+    { path: 'auth/login', component: LoginComponent },
+    { path: 'auth/register', component: RegisterComponent },
 
-    { path: "group/:id", component: GroupComponent },
-    { path: "group/:groupId/notice/:noticeId", component: NoticeComponent },
-    { path: "group/:groupId/material/:materialId", component: MaterialComponent },
-    { path: "group/:groupId/meet/:meetId", component: MeetComponent },
-    { path: "auth/login", component: LoginComponent},
-    { path: "auth/register", component: RegisterComponent},
-    { path: '',
-        canActivate: [authGuard],
-        children: [
-            { path: "create-group", component: FormGroupComponent },
-            { path: "edit-group/:id", component: FormGroupComponent },
-            { path: 'area/:name', component: AreaComponent },
-            { path: "group/:id", component: GroupComponent },
-            { path: "profile", component: ProfileComponent},
-            { path: '', component: FeedComponent }
-        ]
-    }
+    { path: 'create-group', component: FormGroupComponent },
+    { path: 'edit-group/:id', component: FormGroupComponent },
+
+    { path: 'group/:groupId/notice/create', component: NoticeFormComponent },
+    { path: 'group/:groupId/notice/edit/:noticeId', component: NoticeFormComponent },
+    { path: 'group/:groupId/notice/:noticeId', component: NoticeComponent },
+    { path: 'group/:groupId/material/:materialId', component: MaterialComponent },
+    { path: 'group/:groupId/meet/:meetId', component: MeetComponent },
+    { path: 'group/:id', component: GroupComponent },
+
+    { path: '', canActivate: [authGuard], children: [
+        { path: 'profile', component: ProfileComponent },
+        { path: '', component: FeedComponent }
+    ]}
 ]

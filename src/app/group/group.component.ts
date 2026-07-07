@@ -11,6 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { NoticeService } from '../notice/service/notice.service';
 
 @Component({
   selector: 'app-group',
@@ -33,6 +34,7 @@ export class GroupComponent implements OnInit {
     private readonly groupService: GroupService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
+    private readonly noticeService: NoticeService
   ){}
 
   ngOnInit(): void {
@@ -87,30 +89,6 @@ export class GroupComponent implements OnInit {
   
   openMeet(meet: Meet){
     this.router.navigate(['/group', this.id, 'meet', meet.id]);
-  }
-
-  editNotice(notice: Notice) {
-    console.log('Editar notice', notice);
-  }
-
-  deleteNotice(notice: Notice) {
-    console.log('Remover notice', notice);
-  }
-
-  editMaterial(material: Material) {
-    console.log('Editar material', material);
-  }
-
-  deleteMaterial(material: Material) {
-    console.log('Remover material', material);
-  }
-
-  editMeet(meet: Meet) {
-    console.log('Editar meet', meet);
-  }
-
-  deleteMeet(meet: Meet) {
-    console.log('Remover meet', meet);
   }
 
   getMaterialIcon(material: Material): string{

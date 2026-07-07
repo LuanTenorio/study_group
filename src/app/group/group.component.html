@@ -19,12 +19,6 @@
                   <i class="pi pi-info-circle"></i>
                 </div>
                 <span class="resource-title">{{ notice.description }}</span>
-                @if (this.group()?.role == "owner") {
-                  <div class="owner-controls">
-                    <button type="button" class="icon-btn btn-edit" (click)="editNotice(notice); $event.stopPropagation()"><i class="pi pi-pencil"></i></button>
-                    <button type="button" class="icon-btn btn-delete" (click)="deleteNotice(notice); $event.stopPropagation()"><i class="pi pi-trash"></i></button>
-                  </div>
-                }
               </li>
             } @empty {
               <div class="empty-state">Nenhuma notícia cadastrada.</div>
@@ -43,12 +37,6 @@
                   <i [class]="'pi pi-'+ getMaterialIcon(material)"></i>
                 </div>
                 <span class="resource-title">{{ material.description }}</span>
-                @if (this.group()?.role == "owner") {
-                  <div class="owner-controls">
-                    <button type="button" class="icon-btn btn-edit" (click)="editMaterial(material); $event.stopPropagation()"><i class="pi pi-pencil"></i></button>
-                    <button type="button" class="icon-btn btn-delete" (click)="deleteMaterial(material); $event.stopPropagation()"><i class="pi pi-trash"></i></button>
-                  </div>
-                }
               </li>
             } @empty {
               <div class="empty-state">Nenhum material disponivel.</div>
@@ -67,12 +55,6 @@
                   <i class="pi pi-calendar"></i>
                 </div>
                 <span class="resource-title">{{ meet.description }}</span>
-                @if (this.group()?.role == "owner") {
-                  <div class="owner-controls">
-                    <button type="button" class="icon-btn btn-edit" (click)="editMeet(meet); $event.stopPropagation()"><i class="pi pi-pencil"></i></button>
-                    <button type="button" class="icon-btn btn-delete" (click)="deleteMeet(meet); $event.stopPropagation()"><i class="pi pi-trash"></i></button>
-                  </div>
-                }
               </li>
             } @empty {
               <div class="empty-state">Nenhum encontro agendado.</div>
@@ -86,6 +68,16 @@
     @if (this.group()?.role == "owner") {
 
       <div class="actions-footer">
+        <button 
+          type="button" 
+          pButton 
+          icon="pi pi-plus" 
+          label="Novo Aviso" 
+          severity="success" 
+          [outlined]="true" 
+          [routerLink]="['/group', this.group()?.id, 'notice', 'create']">
+        </button>
+
         <button 
           type="button" 
           pButton 
