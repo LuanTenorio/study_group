@@ -25,10 +25,6 @@ export class AppComponent {
         label: 'GRUPOS',
         routerLink: ['/my-groups'] // TODO: Alterar para as rotas certas futuramente
       },
-      {
-        label: 'CONFIGURAÇÕES',
-        routerLink: ['/group', '2']
-      }
     ];
 
 }
