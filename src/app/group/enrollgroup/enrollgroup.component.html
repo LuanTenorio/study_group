@@ -1,0 +1,66 @@
+<div class="form-container">
+  <header class="form-header">
+    <div class="breadcrumb">
+      <a routerLink="/" class="back-link">
+        <i class="pi pi-arrow-left"></i> Voltar aos Grupos
+      </a>
+    </div>
+    <h1 class="page-title">Inscrição no Grupo</h1>
+    <p class="page-subtitle">
+      Confirme sua inscrição para ter acesso aos materiais, avisos e encontros deste grupo.
+    </p>
+  </header>
+
+  <main class="form-card">
+
+    @if (requestError()) {
+      <p class="error-message">
+        <i class="pi pi-exclamation-circle"></i>
+        Não foi possível carregar as informações desse grupo.
+      </p>
+    } @else if (preview() === undefined) {
+      <p>Carregando informações do grupo...</p>
+    } @else {
+
+      <div class="field-group">
+        <label class="field-label">Nome do Grupo</label>
+        <div class="preview-value">{{ preview()?.name }}</div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Área de Conhecimento</label>
+        <div class="preview-value">{{ preview()?.area }}</div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Instituição</label>
+        <div class="preview-value">{{ preview()?.institution }}</div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Membros ativos</label>
+        <div class="preview-value">{{ preview()?.members }}</div>
+      </div>
+
+      <div class="form-actions">
+        <p-button
+          label="Cancelar"
+          severity="secondary"
+          [outlined]="true"
+          routerLink="/"
+          type="button">
+        </p-button>
+
+        <p-button
+          label="Confirmar Inscrição"
+          icon="pi pi-check"
+          type="button"
+          [loading]="isSubmitting()"
+          (onClick)="onEnroll()">
+        </p-button>
+      </div>
+
+    }
+
+  </main>
+</div>

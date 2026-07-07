@@ -10,10 +10,14 @@ import { ProfileComponent } from './user/profile/profile.component';
 import { NoticeComponent } from './notice/notice.component';
 import { MaterialComponent } from './material/material.component';
 import { MeetComponent } from './meet/meet.component';
+import { MyGroupsComponent } from './mygroups/mygroups.component';
+import { EnrollGroupComponent } from './group/enrollgroup/enrollgroup.component';
 
 export const routes: Routes = [
     { path: '', component: FeedComponent },
 
+
+    { path: 'my-groups', component: MyGroupsComponent },
     { path: 'area/:name', component: AreaComponent },
 
     { path: "group/:id", component: GroupComponent },
@@ -27,6 +31,7 @@ export const routes: Routes = [
         children: [
             { path: "create-group", component: FormGroupComponent },
             { path: "edit-group/:id", component: FormGroupComponent },
+            { path: "group/:id/enroll", component: EnrollGroupComponent },
             { path: 'area/:name', component: AreaComponent },
             { path: "group/:id", component: GroupComponent },
             { path: "profile", component: ProfileComponent},

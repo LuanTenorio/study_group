@@ -23,12 +23,8 @@ export class AppComponent {
       },
       {
         label: 'GRUPOS',
-        routerLink: ['/group', '1'] // TODO: Alterar para as rotas certas futuramente
+        routerLink: ['/my-groups'] // TODO: Alterar para as rotas certas futuramente
       },
-      {
-        label: 'CONFIGURAÇÕES',
-        routerLink: ['/group', '2']
-      }
     ];
 
 }

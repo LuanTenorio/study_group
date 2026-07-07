@@ -1,0 +1,46 @@
+<div class="feed-container">
+  <!-- Banner Superior -->
+  <div class="hero-banner">
+    <div class="hero-content">
+      <h1>Meus Grupos</h1>
+      <p>Gerencie as comunidades de estudo que você faz parte e acompanhe seus próximos encontros.</p>
+    </div>
+  </div>
+
+  <!-- Conteúdo Principal -->
+  <main class="feed-main">
+    <div class="section-header">
+      <h2>Grupos Ativos</h2>
+    </div>
+
+    <div class="group-grid">
+      @for (group of myGroups(); track group.id) {
+        <!-- Card transformado em link para a página do grupo -->
+        <div class="group-card" [routerLink]="['/group', group.id]">
+          <div class="card-content">
+            <div class="tags">
+              <span class="tag-inst">{{ group.institution }}</span>
+              <span class="tag-area">{{ group.area }}</span>
+            </div>
+            <h3>{{ group.title }}</h3>
+            <div class="card-info">
+              <span><i class="pi pi-users"></i> <strong>{{ group.members }}</strong> membros ativos</span>
+              <span><i class="pi pi-calendar"></i> Próx. encontro: {{ group.nextMeeting }}</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            Acessar mural &rarr;
+          </div>
+        </div>
+      } @empty {
+        <!-- Empty State super amigável -->
+        <div class="empty-state">
+          <i class="pi pi-folder-open" style="font-size: 3rem; color: #cbd5e1; margin-bottom: 1rem;"></i>
+          <h3>Você ainda não está participando de nenhum grupo</h3>
+          <p>Explore as áreas de conhecimento ou pesquise por temas do seu interesse para encontrar sua turma.</p>
+          <button class="btn-primary" routerLink="/">Explorar Grupos</button>
+        </div>
+      }
+    </div>
+  </main>
+</div>

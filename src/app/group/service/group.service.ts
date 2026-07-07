@@ -5,6 +5,7 @@ import { Group } from '../interface/group.interface';
 import { map } from 'rxjs';
 import { Area } from '../../area/interface/area.interface';
 import { CreateGroup } from '../interface/create-group.interface';
+import { GroupPreview } from '../interface/group_preview.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,16 @@ export class GroupService {
 
   update(id: number, data: CreateGroup){
     return this.http.patch(`${this.apiUrl}/${id}`, data)
+  }
+
+  // Dado público do grupo (não exige ser membro) — usado na tela de inscrição
+  findPreview(id: number){
+    return this.http.get<GroupPreview>(`${this.apiUrl}/${id}/preview`)
+  }
+
+  // Confirma a inscrição do usuário logado nesse grupo (entra como 'active')
+  enroll(id: number){
+    return this.http.post<void>(`${this.apiUrl}/${id}/enroll`, {})
   }
 
 }

@@ -47,11 +47,13 @@ export class GroupComponent implements OnInit {
         error: (err: HttpErrorResponse) => {
           this.requestError.update(v => true)
           if(err.status == 401){
-            this.messageService.add({ severity: 'error', summary: 'Não inscrito', detail: 'Você não está inscrito nesse grupo', life: 5000 })
+            // Antes: mostrava o toast e voltava pra home.
+            // Agora: leva o usuário direto pra tela de inscrição no grupo.
+            this.router.navigate(['/group', this.id, 'enroll'])
           }else{
             this.messageService.add({ severity: 'error', summary: 'Erro interno', detail: 'Erro ao carregar grupo. Tente novamente mais tarde', life: 5000 })
+            this.router.navigateByUrl("")
           }
-          this.router.navigateByUrl("") 
         }
       });
     })

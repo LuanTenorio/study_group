@@ -1,0 +1,191 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.feed-container {
+  background-color: #f8fafc;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-banner {
+  /* Anula o padding padrão para colar nas bordas, dependendo do seu layout pai */
+  margin: -2rem -2rem 0 -2rem;
+  width: calc(100% + 4rem);
+  
+  height: 260px; /* Um pouco menor que o feed principal para não ocupar tanto espaço */
+  background-color: #0f172a;
+  background-image: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hero-content {
+  text-align: center;
+  color: white;
+  padding: 0 1rem;
+  width: 100%;
+  max-width: 800px;
+  
+  h1 { 
+    font-size: 2.5rem; 
+    margin-bottom: 1rem; 
+  }
+  
+  p { 
+    font-size: 1.125rem; 
+    color: #e0e7ff; 
+  }
+}
+
+.feed-main {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+
+    h2 { 
+      font-size: 1.5rem; 
+      font-weight: 700; 
+      color: #0f172a; 
+      margin: 0; 
+    }
+  }
+}
+
+/* Grid Automático de Grupos */
+.group-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 380px));
+  justify-content: start;
+  gap: 1.5rem;
+}
+
+.group-card {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
+    transform: translateY(-4px);
+    border-color: #cbd5e1;
+  }
+
+  .card-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+
+    .tags {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+
+      .tag-inst { 
+        background: #eff6ff; 
+        color: #1d4ed8; 
+        padding: 0.25rem 0.75rem; 
+        border-radius: 999px; 
+        font-size: 0.75rem; 
+        font-weight: 700; 
+      }
+      
+      .tag-area { 
+        background: #f1f5f9; 
+        color: #475569; 
+        padding: 0.25rem 0.6rem; 
+        border-radius: 6px; 
+        font-size: 0.75rem; 
+        font-weight: 600; 
+      }
+    }
+
+    h3 { 
+      font-size: 1.2rem; 
+      margin: 0 0 1rem 0; 
+      color: #0f172a; 
+    }
+
+    .card-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: #475569;
+
+      span { 
+        display: flex; 
+        align-items: center; 
+        gap: 0.5rem; 
+        
+        i { color: #94a3b8; } 
+      }
+    }
+  }
+
+  .card-footer {
+    padding: 1rem 1.5rem;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    text-align: right;
+    color: #2563eb;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-radius: 0 0 16px 16px;
+  }
+}
+
+/* Estado Vazio (Empty State) */
+.empty-state {
+  grid-column: 1 / -1; /* Ocupa todas as colunas do grid */
+  text-align: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 16px;
+  border: 2px dashed #cbd5e1;
+  
+  h3 { 
+    font-size: 1.25rem; 
+    color: #334155; 
+    margin-bottom: 0.5rem; 
+  }
+  
+  p { 
+    color: #64748b; 
+    margin-bottom: 2rem; 
+    max-width: 500px; 
+    margin-left: auto; 
+    margin-right: auto; 
+  }
+  
+  .btn-primary {
+    background-color: #2563eb;
+    color: white;
+    font-weight: bold;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    
+    &:hover { 
+      background-color: #1d4ed8; 
+    }
+  }
+}

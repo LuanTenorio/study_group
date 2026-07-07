@@ -1,4 +1,5 @@
 export interface Area {
     id: number;
-    name: string
+    name: string;
+    icon: string;
 }
