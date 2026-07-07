@@ -20,11 +20,8 @@
       <!-- 2. Filtro de Instituição -->
       <div class="input-group">
         <i class="pi pi-building"></i>
-        <select #instSelect (change)="feedService.setInstitution(instSelect.value)">
-          <option value="">Qualquer Instituição</option>
-          <option value="unb">UnB</option>
-          <option value="usp">USP</option>
-        </select>
+        <!-- Trocamos o #instSelect por #instInput -->
+        <input #instInput type="text" placeholder="Instituição (ex: UnB)..." (keyup.enter)="feedService.setInstitution(instInput.value)">
       </div>
 
       <!-- 3. Busca livre por Área/Tópico -->
@@ -33,7 +30,7 @@
         <input #areaInput type="text" placeholder="Área ou tópico (ex: Cyber)..." (keyup.enter)="feedService.setArea(areaInput.value)">
       </div>
 
-      <button class="btn-search" (click)="feedService.setSearchTerm(searchInput.value); feedService.setInstitution(instSelect.value); feedService.setArea(areaInput.value)">Buscar</button>
+      <button class="btn-search" (click)="feedService.setSearchTerm(searchInput.value);feedService.setInstitution(instInput.value); feedService.setArea(areaInput.value)">Buscar</button>
     </div>
   </div>
 

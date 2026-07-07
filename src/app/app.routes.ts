@@ -10,7 +10,7 @@ import { ProfileComponent } from './user/profile/profile.component';
 import { NoticeComponent } from './notice/notice.component';
 import { MaterialComponent } from './material/material.component';
 import { MeetComponent } from './meet/meet.component';
-import { MyGroupsComponent } from './mygroups.component/mygroups.component';
+import { MyGroupsComponent } from './mygroups/mygroups.component';
 
 export const routes: Routes = [
     { path: '', component: FeedComponent },

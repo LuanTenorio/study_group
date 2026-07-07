@@ -28,12 +28,12 @@ export class FeedService {
   // lista de grupos que será consumida pelos componentes
  readonly groups = computed(() => {
     const term = this.searchTerm().trim().toLowerCase();
-    const inst = this.institution();
+    const inst = this.institution().trim().toLowerCase();
     const area = this.areaFilter().toLowerCase();
 
     return this._groups().filter(group => {
       const matchesTerm = !term || group.title.toLowerCase().includes(term);
-      const matchesInstitution = !inst || group.institution.toLowerCase() === inst.toLowerCase();
+      const matchesInstitution = !inst || group.institution.toLowerCase().includes(inst);
       const matchesArea = !area || group.area.toLowerCase().includes(area);
       return matchesTerm && matchesInstitution && matchesArea;
     })
