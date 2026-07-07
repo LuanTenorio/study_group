@@ -2,18 +2,8 @@ import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { group_card } from '../interface/group_card.interface';
 import { area_card } from '../../area/interface/area_card.interface';
+import { AreaService } from '../../area/service/area.service';
 
-// Fonte única das categorias (mantemos o mock estático para o menu)
-const CATEGORIES: area_card[] = [
-  { id: 1, name: 'Exatas', icon: 'pi-calculator' },
-  { id: 2, name: 'Humanas', icon: 'pi-book' },
-  { id: 3, name: 'Biológicas', icon: 'pi-eye' },
-  { id: 4, name: 'Tecnologia', icon: 'pi-desktop' },
-  { id: 5, name: 'Idiomas', icon: 'pi-globe' },
-  { id: 6, name: 'Negócios', icon: 'pi-chart-bar' },
-  { id: 7, name: 'Artes', icon: 'pi-palette' },
-  { id: 8, name: 'Saúde', icon: 'pi-heart' }
-];
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +11,9 @@ const CATEGORIES: area_card[] = [
 export class FeedService {
   // injetando o HttpClient para poder acessar o backend
   private readonly http = inject(HttpClient);
+  private readonly areaService = inject(AreaService);
 
-  readonly categories = signal<area_card[]>(CATEGORIES);
+  readonly categories = signal<area_card[]>([]);
 
   // declarando a lista de grupos como um signal privado, que será atualizado quando os dados forem carregados do backend
   private readonly _groups = signal<group_card[]>([]);
@@ -31,6 +22,8 @@ export class FeedService {
   readonly searchTerm = signal('');
   readonly institution = signal('');
   readonly areaFilter = signal('');
+
+  
 
   // lista de grupos que será consumida pelos componentes
  readonly groups = computed(() => {
@@ -49,11 +42,23 @@ export class FeedService {
   });
 
   constructor() {
-    // assim que o service é instanciado, ele carrega os grupos do backend
     this.loadGroups();
+    this.loadAreas(); 
   }
 
-  // --- MÉTODO DE BUSCA ---
+  // --- MÉTODO DE BUSCA DE AREAS---
+  loadAreas(): void {
+    this.areaService.getAllAreas().subscribe({
+      next: (areasDoBackend) => {
+        this.categories.set(areasDoBackend);
+      },
+      error: (erro) => {
+        console.error('Falha ao buscar as áreas de conhecimento:', erro);
+      }
+    });
+  }
+
+  // --- MÉTODO DE BUSCA GRUPOS---
 
   loadGroups(): void {
     // acessa o endpoint do backend para buscar todos os grupos
