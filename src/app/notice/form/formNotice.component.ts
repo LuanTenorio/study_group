@@ -56,6 +56,7 @@ export class NoticeFormComponent implements OnInit {
 
   private initForm(): void {
     this.noticeForm = this.fb.group({
+      title: ['', [Validators.required, Validators.minLength(4)]],
       description: ['', [Validators.required, Validators.minLength(4)]],
       expiration_date: [null, [Validators.required]]
     });
@@ -65,6 +66,7 @@ export class NoticeFormComponent implements OnInit {
     this.noticeService.findNotice(id).subscribe({
       next: (notice: Notice) => {
         this.noticeForm.patchValue({
+          title: notice.title,
           description: notice.description,
           expiration_date: this.formatDateForInput(notice.expiration_date)
         });
@@ -146,6 +148,7 @@ export class NoticeFormComponent implements OnInit {
 
     if (this.isEditMode() && this.noticeId) {
       const payload: UpdateNotice = {
+        title: formValue.title,
         description: formValue.description,
         expiration_date: expirationDate,
         group_id: this.groupId ?? 0
@@ -159,10 +162,11 @@ export class NoticeFormComponent implements OnInit {
       });
     } else {
       const payload: CreateNotice = {
-      description: formValue.description,
-      expiration_date: expirationDate,
-      group_id: this.groupId ?? 0,
-      user_id: this.userId ?? 0
+        title: formValue.title,
+        description: formValue.description,
+        expiration_date: expirationDate,
+        group_id: this.groupId ?? 0,
+        user_id: this.userId ?? 0
     };
       this.noticeService.create(payload).subscribe({
         next: () => {

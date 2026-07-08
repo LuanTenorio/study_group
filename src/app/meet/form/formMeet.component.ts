@@ -57,6 +57,7 @@ export class MeetFormComponent implements OnInit {
 
   private initForm(): void {
     this.meetForm = this.fb.group({
+      title: ['', [Validators.required, Validators.minLength(4)]],
       description: ['', [Validators.required, Validators.minLength(4)]],
       location: ['', [Validators.required, Validators.minLength(3)]],
       date_time: [null, [Validators.required]]
@@ -67,6 +68,7 @@ export class MeetFormComponent implements OnInit {
     this.meetService.findMeet(id).subscribe({
       next: (meet: Meet) => {
         this.meetForm.patchValue({
+          title: meet.title,
           description: meet.description,
           location: meet.location,
           date_time: this.formatDateTimeForInput(meet.date_time)
@@ -137,6 +139,7 @@ export class MeetFormComponent implements OnInit {
 
     if (this.isEditMode() && this.meetId) {
       const payload: UpdateMeet = {
+        title: formValue.title,
         description: formValue.description,
         location: formValue.location,
         date_time: dateTime,
@@ -152,6 +155,7 @@ export class MeetFormComponent implements OnInit {
       });
     } else {
       const payload: CreateMeet = {
+        title: formValue.title,
         description: formValue.description,
         location: formValue.location,
         date_time: dateTime,

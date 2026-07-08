@@ -2,6 +2,7 @@ import { User } from "../../user/interface/user.interface"
 
 export interface Material {
     id: number
+    title: string
     user_id: number
     group_id: number
     file_size: number

@@ -27,7 +27,7 @@
     <article class="detail-card">
       <div class="detail-card-top">
         <div>
-          <h2>{{ meet()?.description }}</h2>
+          <h2>{{ meet()?.title }}</h2>
           <p class="detail-filetype">Local: {{ meet()?.location }}</p>
         </div>
       </div>
@@ -38,7 +38,7 @@
       </div>
 
       <div class="detail-content">
-        <p>Esse encontro é exibido como uma página de detalhe estática. Se quiser, adicione informações sobre participantes, link de videoconferência ou agenda.</p>
+        <p>{{  meet()?.description  }}</p>
       </div>
     </article>
     <p-confirmDialog appendTo="body" />

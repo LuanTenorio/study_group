@@ -1,4 +1,5 @@
 export interface CreateNotice {
+  title: string;
   description: string;
   expiration_date: string;
   group_id: number;
@@ -6,6 +7,7 @@ export interface CreateNotice {
 }
 
 export interface UpdateNotice {
+  title: string;
   description: string;
   expiration_date: string;
   group_id: number;

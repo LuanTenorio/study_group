@@ -30,6 +30,7 @@ export class MaterialService {
   create(material: CreateMaterial, file: File){
     const formData = new FormData();
     formData.append("file", file);
+    formData.append("title", material.title);
     formData.append("description", material.description);
     formData.append("user_id", material.user_id.toString());
     formData.append("group_id", material.group_id.toString());
@@ -42,6 +43,7 @@ export class MaterialService {
 
   update(id: number, material: UpdateMaterial, file?: File){
     const formData = new FormData();
+    formData.append("title", material.title);
     formData.append("description", material.description);
     formData.append("group_id", material.group_id.toString());
     if(file){

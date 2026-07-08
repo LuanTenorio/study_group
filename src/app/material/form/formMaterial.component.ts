@@ -63,6 +63,7 @@ export class MaterialFormComponent implements OnInit {
 
   private initForm(): void {
     this.materialForm = this.fb.group({
+      title: ['', [Validators.required, Validators.minLength(4)]],
       description: ['', [Validators.required, Validators.minLength(4)]]
     });
   }
@@ -71,6 +72,7 @@ export class MaterialFormComponent implements OnInit {
     this.materialService.findMaterial(id).subscribe({
       next: (material: Material) => {
         this.materialForm.patchValue({
+          title: material.title,
           description: material.description
         });
         this.currentFileName.set(material.file_type);
@@ -136,9 +138,11 @@ export class MaterialFormComponent implements OnInit {
     this.isSubmitting.set(true);
 
     const description = String(this.materialForm.value.description ?? '').trim();
+    const title = String(this.materialForm.value.title ?? '').trim();
 
     if (this.isEditMode() && this.materialId) {
       const payload: UpdateMaterial = {
+        title,
         description,
         group_id: this.groupId ?? 0
       };
@@ -158,6 +162,7 @@ export class MaterialFormComponent implements OnInit {
       }
 
       const payload: CreateMaterial = {
+        title,
         description,
         group_id: this.groupId ?? 0,
         user_id: this.userId ?? 0

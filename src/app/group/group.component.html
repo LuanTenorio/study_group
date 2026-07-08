@@ -18,7 +18,7 @@
                 <div class="icon-wrapper notice-icon">
                   <i class="pi pi-info-circle"></i>
                 </div>
-                <span class="resource-title">{{ notice.description }}</span>
+                <span class="resource-title">{{ notice.title }}</span>
               </li>
             } @empty {
               <div class="empty-state">Nenhuma notícia cadastrada.</div>
@@ -36,7 +36,7 @@
                 <div class="icon-wrapper pdf-icon">
                   <i [class]="'pi pi-'+ getMaterialIcon(material)"></i>
                 </div>
-                <span class="resource-title">{{ material.description }}</span>
+                <span class="resource-title">{{ material.title }}</span>
               </li>
             } @empty {
               <div class="empty-state">Nenhum material disponivel.</div>
@@ -54,7 +54,7 @@
                 <div class="icon-wrapper meet-icon">
                   <i class="pi pi-calendar"></i>
                 </div>
-                <span class="resource-title">{{ meet.description }}</span>
+                <span class="resource-title">{{ meet.title }}</span>
               </li>
             } @empty {
               <div class="empty-state">Nenhum encontro agendado.</div>

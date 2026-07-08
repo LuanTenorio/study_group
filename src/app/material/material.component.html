@@ -27,7 +27,7 @@
     <article class="detail-card">
       <div class="detail-card-top">
         <div>
-          <h2>{{ material()?.description }}</h2>
+          <h2>{{ material()?.title }}</h2>
           <p class="detail-filetype">Tipo: {{ material()?.file_type }}</p>
         </div>
       </div>
@@ -39,6 +39,7 @@
       </div>
 
       <div class="detail-content">
+        <p>{{ material()?.description }}</p>
         <button
             type="button"
             (click)="downloadMaterialPdf()">

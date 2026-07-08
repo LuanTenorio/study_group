@@ -29,7 +29,7 @@
     <article class="notice-card">
       <div class="notice-card-top">
         <div>
-          <h2>{{ notice()?.description }}</h2>
+          <h2>{{ notice()?.title }}</h2>
         </div>
       </div>
 
@@ -42,7 +42,7 @@
       </div>
 
       <div class="notice-content">
-        <p>Esse aviso é apenas para exibir informações estáticas de um item de aviso. Caso queira, você pode incluir mais detalhes ou campos adicionais aqui.</p>
+        <p>{{  notice()?.description  }}</p>
       </div>
     </article>
 
