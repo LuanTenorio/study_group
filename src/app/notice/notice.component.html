@@ -17,13 +17,19 @@
         <p class="notice-meta">Grupo: <span>{{ groupName() }}</span></p>
         <h1 class="notice-title">Aviso</h1>
       </div>
+      @if (this.group()?.role == "owner") {
+        <div class="owner-controls">
+          <button type="button" class="icon-btn btn-edit" (click)="editNotice(); $event.stopPropagation()"><i class="pi pi-pencil"></i></button>
+          <button type="button" class="icon-btn btn-delete" (click)="deleteNotice(); $event.stopPropagation()"><i class="pi pi-trash"></i></button>
+        </div>
+      }
       <button type="button" class="back-button" (click)="goBack()">Voltar</button>
     </header>
 
     <article class="notice-card">
       <div class="notice-card-top">
         <div>
-          <h2>{{ notice()?.description }}</h2>
+          <h2>{{ notice()?.title }}</h2>
         </div>
       </div>
 
@@ -36,8 +42,10 @@
       </div>
 
       <div class="notice-content">
-        <p>Esse aviso é apenas para exibir informações estáticas de um item de aviso. Caso queira, você pode incluir mais detalhes ou campos adicionais aqui.</p>
+        <p>{{  notice()?.description  }}</p>
       </div>
     </article>
+
+    <p-confirmDialog appendTo="body" />
   </div>
 }

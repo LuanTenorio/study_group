@@ -11,6 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { NoticeService } from '../notice/service/notice.service';
 
 @Component({
   selector: 'app-group',
@@ -32,7 +33,8 @@ export class GroupComponent implements OnInit {
   constructor(
     private readonly groupService: GroupService,
     private readonly route: ActivatedRoute,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly noticeService: NoticeService
   ){}
 
   ngOnInit(): void {

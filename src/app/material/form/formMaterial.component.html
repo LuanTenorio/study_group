@@ -1,0 +1,77 @@
+<div class="form-container">
+  <header class="form-header">
+    <div class="breadcrumb">
+      <a [routerLink]="groupId ? ['/group', groupId] : '/'" class="back-link">
+        <i class="pi pi-arrow-left"></i> Voltar ao grupo
+      </a>
+    </div>
+    <h1 class="page-title">{{ isEditMode() ? 'Editar Material' : 'Criar Novo Material' }}</h1>
+    <p class="page-subtitle">
+      {{ isEditMode() ? 'Atualize a descrição ou substitua o arquivo.' : 'Defina uma descrição e adicione o arquivo do material.' }}
+    </p>
+  </header>
+
+  <main class="form-card">
+    <form [formGroup]="materialForm" (ngSubmit)="onSubmit()">
+      <div class="field-group">
+        <label for="title" class="field-label">Título do material <span class="required">*</span></label>
+        <input id="title" type="text" pInputText formControlName="title" placeholder="Ex: Lista de exercícios de Matemática" [class.ng-invalid]="isFieldInvalid('title')" [class.ng-dirty]="isFieldInvalid('title')" />
+        @if (isFieldInvalid('title')) {
+          <small class="error-message">
+            <i class="pi pi-exclamation-circle"></i> O título é obrigatório (mínimo de 4 caracteres).
+          </small>
+        }
+      </div>
+
+      <div class="field-group">
+        <label for="description" class="field-label">Descrição do material <span class="required">*</span></label>
+        <input id="description" type="text" pInputText formControlName="description" placeholder="Ex: Lista de exercícios de Matemática" [class.ng-invalid]="isFieldInvalid('description')" [class.ng-dirty]="isFieldInvalid('description')" />
+        @if (isFieldInvalid('description')) {
+          <small class="error-message">
+            <i class="pi pi-exclamation-circle"></i> A descrição é obrigatória (mínimo de 4 caracteres).
+          </small>
+        }
+      </div>
+
+      <div class="field-group">
+        <label for="file" class="field-label">Arquivo {{ isEditMode() ? '' : '*' }}</label>
+        <label
+          for="file"
+          class="file-dropzone"
+          [class.is-dragging]="isDragging()"
+          [class.has-file]="selectedFile()"
+          (dragover)="onDragOver($event)"
+          (dragleave)="onDragLeave($event)"
+          (drop)="onDrop($event)">
+          <input id="file" type="file" (change)="onFileSelected($event)" />
+          <i class="pi pi-cloud-upload"></i>
+          <strong>{{ selectedFile() ? selectedFile()?.name : 'Arraste o arquivo aqui' }}</strong>
+          <span>{{ selectedFile() ? formatBytes(selectedFile()?.size ?? 0) : 'ou clique para selecionar no computador' }}</span>
+        </label>
+
+        @if (!selectedFile() && isEditMode() && currentFileName()) {
+          <small class="helper-message">
+            Arquivo atual: {{ currentFileName() }}. Envie outro arquivo apenas se quiser substituí-lo.
+          </small>
+        }
+
+        @if (selectedFile()) {
+          <button type="button" class="remove-file-button" (click)="removeSelectedFile()">
+            <i class="pi pi-times"></i> Remover arquivo selecionado
+          </button>
+        }
+
+        @if (isFileInvalid() && materialForm.touched) {
+          <small class="error-message">
+            <i class="pi pi-exclamation-circle"></i> O arquivo do material é obrigatório.
+          </small>
+        }
+      </div>
+
+      <div class="form-actions">
+        <p-button label="Cancelar" severity="secondary" [outlined]="true" [routerLink]="groupId ? ['/group', groupId] : '/'" type="button"></p-button>
+        <p-button [label]="isEditMode() ? 'Salvar Alterações' : 'Criar Material'" [icon]="isEditMode() ? 'pi pi-save' : 'pi pi-check'" type="submit" [loading]="isSubmitting()"></p-button>
+      </div>
+    </form>
+  </main>
+</div>
