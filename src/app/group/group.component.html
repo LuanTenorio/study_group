@@ -88,6 +88,16 @@
           [routerLink]="['/group', this.group()?.id, 'material', 'create']">
         </button>
 
+        <button
+          type="button"
+          pButton
+          icon="pi pi-calendar-plus"
+          label="Novo Encontro"
+          severity="success"
+          [outlined]="true"
+          [routerLink]="['/group', this.group()?.id, 'meet', 'create']">
+        </button>
+
         <button 
           type="button" 
           pButton 

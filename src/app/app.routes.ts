@@ -12,6 +12,7 @@ import { MaterialComponent } from './material/material.component';
 import { MeetComponent } from './meet/meet.component';
 import { NoticeFormComponent } from './notice/form/formNotice.component';
 import { MaterialFormComponent } from './material/form/formMaterial.component';
+import { MeetFormComponent } from './meet/form/formMeet.component';
 
 export const routes: Routes = [
     { path: '', component: FeedComponent },
@@ -29,6 +30,8 @@ export const routes: Routes = [
     { path: 'group/:groupId/material/create', component: MaterialFormComponent },
     { path: 'group/:groupId/material/edit/:materialId', component: MaterialFormComponent },
     { path: 'group/:groupId/material/:materialId', component: MaterialComponent },
+    { path: 'group/:groupId/meet/create', component: MeetFormComponent },
+    { path: 'group/:groupId/meet/edit/:meetId', component: MeetFormComponent },
     { path: 'group/:groupId/meet/:meetId', component: MeetComponent },
     { path: 'group/:id', component: GroupComponent },
 
