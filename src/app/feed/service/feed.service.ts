@@ -41,10 +41,7 @@ export class FeedService {
     .sort((a, b) => b.members - a.members); 
   });
 
-  constructor() {
-    this.loadGroups();
-    this.loadAreas(); 
-  }
+
 
   // --- MÉTODO DE BUSCA DE AREAS---
   loadAreas(): void {

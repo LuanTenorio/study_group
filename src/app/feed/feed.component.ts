@@ -26,6 +26,8 @@ export class FeedComponent implements OnInit {
     // retira os filtros de busca e área ao entrar na página principal
     this.feedService.clearFilters();
     this.feedService.setArea('');
+    this.feedService.loadAreas();
+    this.feedService.loadGroups()
   }
 
   // função que redireciona o usuário para a página da área
