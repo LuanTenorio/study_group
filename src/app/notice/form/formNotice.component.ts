@@ -7,9 +7,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 import { AuthService } from '../../auth/service/auth.service';
+import { GroupService } from '../../group/service/group.service';
 import { NoticeService } from '../service/notice.service';
 import { CreateNotice, UpdateNotice } from '../interface/createNotice.interface';
-import { Notice } from '../interface/notice.interface';
 
 @Component({
   selector: 'app-notice-form',
@@ -22,11 +22,13 @@ export class NoticeFormComponent implements OnInit {
   private readonly messageService = inject(MessageService);
   private readonly fb = inject(FormBuilder);
   private readonly noticeService = inject(NoticeService);
+  private readonly groupService = inject(GroupService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly authService = inject(AuthService);
   isEditMode = signal(false);
   isSubmitting = signal(false);
+  isLoading = signal(false);
   noticeId: number | null = null;
   groupId: number | null = null;
   userId: number | null = null;
@@ -48,8 +50,9 @@ export class NoticeFormComponent implements OnInit {
         this.loadNoticeData(this.noticeId);
       } else {
         this.isEditMode.set(false);
+        this.isLoading.set(false);
         this.noticeId = null;
-        this.noticeForm.reset({ description: '', expiration_date: null });
+        this.noticeForm.reset({ title: '', description: '', expiration_date: null });
       }
     });
   }
@@ -63,15 +66,32 @@ export class NoticeFormComponent implements OnInit {
   }
 
   private loadNoticeData(id: number): void {
-    this.noticeService.findNotice(id).subscribe({
-      next: (notice: Notice) => {
+    if (!this.groupId) {
+      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Grupo não encontrado.' });
+      this.router.navigateByUrl('');
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.groupService.findGroup(this.groupId).subscribe({
+      next: (group) => {
+        const notice = group.notices.find(item => item.id === id);
+
+        if (!notice) {
+          this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Aviso não encontrado.' });
+          this.router.navigateByUrl(`/group/${this.groupId}`);
+          return;
+        }
+
         this.noticeForm.patchValue({
           title: notice.title,
           description: notice.description,
           expiration_date: this.formatDateForInput(notice.expiration_date)
         });
+        this.isLoading.set(false);
       },
       error: () => {
+        this.isLoading.set(false);
         this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Não foi possível carregar os dados do aviso.' });
         this.router.navigateByUrl('');
       }

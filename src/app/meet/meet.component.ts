@@ -77,6 +77,16 @@ export class MeetComponent implements OnInit {
     this.router.navigate(['/group', this.groupId, 'meet', 'edit', this.meetId]);
   }
 
+  creatorName(): string {
+    const meet = this.meet();
+
+    if (meet?.user?.name) {
+      return meet.user.name;
+    }
+
+    return meet?.user_id ? `Usuário #${meet.user_id}` : 'Não informado';
+  }
+
   deleteMeet() {
     this.confirmationService.confirm({
       message: 'Você tem certeza que deseja deletar este encontro? Esta ação não pode ser desfeita.',

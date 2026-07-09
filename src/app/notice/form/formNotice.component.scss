@@ -66,7 +66,9 @@
   }
 
   ::ng-deep {
-    input, .p-calendar {
+    input,
+    textarea,
+    .p-calendar {
       width: 100%;
       border-radius: 8px;
       border-color: #cbd5e1;
@@ -77,8 +79,15 @@
       }
     }
 
+    textarea {
+      min-height: 7rem;
+      resize: vertical;
+    }
+
     .ng-invalid.ng-dirty {
-      input, .p-calendar {
+      input,
+      textarea,
+      .p-calendar {
         border-color: #f43f5e;
       }
     }
@@ -92,6 +101,54 @@
     font-size: 0.8rem;
     margin-top: 0.4rem;
     font-weight: 500;
+  }
+}
+
+.date-input-shell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+
+  > i {
+    position: absolute;
+    left: 0.95rem;
+    color: var(--accent-blue);
+    font-size: 1rem;
+    pointer-events: none;
+  }
+
+  input {
+    width: 100%;
+    min-height: 44px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-main);
+    font: inherit;
+    padding: 0.7rem 0.85rem 0.7rem 2.65rem;
+    outline: none;
+
+    &::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      opacity: 0.65;
+    }
+  }
+
+  &:hover,
+  &:focus-within {
+    border-color: var(--accent-blue);
+    background: #f8fbff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  }
+
+  &:has(.ng-invalid.ng-dirty) {
+    border-color: #f43f5e;
+    box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.1);
   }
 }
 

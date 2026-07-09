@@ -66,7 +66,8 @@
   }
 
   ::ng-deep {
-    input {
+    input,
+    textarea {
       width: 100%;
       border-radius: 8px;
       border-color: #cbd5e1;
@@ -76,6 +77,11 @@
       &:enabled:hover {
         border-color: var(--accent-blue);
       }
+    }
+
+    textarea {
+      min-height: 7rem;
+      resize: vertical;
     }
   }
 

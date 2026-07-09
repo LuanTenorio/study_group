@@ -41,8 +41,10 @@
       <div class="detail-content">
         <p>{{ material()?.description }}</p>
         <button
+            class="open-file-button"
             type="button"
             (click)="downloadMaterialPdf()">
+            <i class="pi pi-external-link"></i>
             Abrir arquivo
         </button>
       </div>

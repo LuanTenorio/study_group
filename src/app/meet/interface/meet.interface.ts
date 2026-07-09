@@ -9,5 +9,5 @@ export interface Meet {
     description: string
     location: string
 
-    user: User
+    user?: User
 }

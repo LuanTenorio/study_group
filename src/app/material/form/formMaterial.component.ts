@@ -7,8 +7,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 import { AuthService } from '../../auth/service/auth.service';
+import { GroupService } from '../../group/service/group.service';
 import { MaterialService } from '../service/material.service';
-import { Material } from '../interface/material.interface';
 import { CreateMaterial, UpdateMaterial } from '../interface/createMaterial.interface';
 
 @Component({
@@ -22,12 +22,14 @@ export class MaterialFormComponent implements OnInit {
   private readonly messageService = inject(MessageService);
   private readonly fb = inject(FormBuilder);
   private readonly materialService = inject(MaterialService);
+  private readonly groupService = inject(GroupService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly authService = inject(AuthService);
 
   isEditMode = signal(false);
   isSubmitting = signal(false);
+  isLoading = signal(false);
   isDragging = signal(false);
   selectedFile = signal<File | null>(null);
   currentFileName = signal<string | null>(null);
@@ -55,8 +57,9 @@ export class MaterialFormComponent implements OnInit {
         this.loadMaterialData(this.materialId);
       } else {
         this.isEditMode.set(false);
+        this.isLoading.set(false);
         this.materialId = null;
-        this.materialForm.reset({ description: '' });
+        this.materialForm.reset({ title: '', description: '' });
       }
     });
   }
@@ -69,15 +72,32 @@ export class MaterialFormComponent implements OnInit {
   }
 
   private loadMaterialData(id: number): void {
-    this.materialService.findMaterial(id).subscribe({
-      next: (material: Material) => {
+    if (!this.groupId) {
+      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Grupo não encontrado.' });
+      this.router.navigateByUrl('');
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.groupService.findGroup(this.groupId).subscribe({
+      next: (group) => {
+        const material = group.materials.find(item => item.id === id);
+
+        if (!material) {
+          this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Material não encontrado.' });
+          this.router.navigateByUrl(`/group/${this.groupId}`);
+          return;
+        }
+
         this.materialForm.patchValue({
           title: material.title,
           description: material.description
         });
         this.currentFileName.set(material.file_type);
+        this.isLoading.set(false);
       },
       error: () => {
+        this.isLoading.set(false);
         this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Não foi possível carregar os dados do material.' });
         this.router.navigateByUrl('');
       }

@@ -7,9 +7,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 import { AuthService } from '../../auth/service/auth.service';
+import { GroupService } from '../../group/service/group.service';
 import { MeetService } from '../service/meet.service';
 import { CreateMeet, UpdateMeet } from '../interface/createMeet.interface';
-import { Meet } from '../interface/meet.interface';
 
 @Component({
   selector: 'app-meet-form',
@@ -22,12 +22,14 @@ export class MeetFormComponent implements OnInit {
   private readonly messageService = inject(MessageService);
   private readonly fb = inject(FormBuilder);
   private readonly meetService = inject(MeetService);
+  private readonly groupService = inject(GroupService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly authService = inject(AuthService);
 
   isEditMode = signal(false);
   isSubmitting = signal(false);
+  isLoading = signal(false);
   meetId: number | null = null;
   groupId: number | null = null;
   userId: number | null = null;
@@ -49,8 +51,9 @@ export class MeetFormComponent implements OnInit {
         this.loadMeetData(this.meetId);
       } else {
         this.isEditMode.set(false);
+        this.isLoading.set(false);
         this.meetId = null;
-        this.meetForm.reset({ description: '', location: '', date_time: null });
+        this.meetForm.reset({ title: '', description: '', location: '', date_time: null });
       }
     });
   }
@@ -65,16 +68,33 @@ export class MeetFormComponent implements OnInit {
   }
 
   private loadMeetData(id: number): void {
-    this.meetService.findMeet(id).subscribe({
-      next: (meet: Meet) => {
+    if (!this.groupId) {
+      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Grupo não encontrado.' });
+      this.router.navigateByUrl('');
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.groupService.findGroup(this.groupId).subscribe({
+      next: (group) => {
+        const meet = group.meets.find(item => item.id === id);
+
+        if (!meet) {
+          this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Encontro não encontrado.' });
+          this.router.navigateByUrl(`/group/${this.groupId}`);
+          return;
+        }
+
         this.meetForm.patchValue({
           title: meet.title,
           description: meet.description,
           location: meet.location,
           date_time: this.formatDateTimeForInput(meet.date_time)
         });
+        this.isLoading.set(false);
       },
       error: () => {
+        this.isLoading.set(false);
         this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Não foi possível carregar os dados do encontro.' });
         this.router.navigateByUrl('');
       }

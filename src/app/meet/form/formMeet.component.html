@@ -25,7 +25,7 @@
 
       <div class="field-group">
         <label for="description" class="field-label">Descrição do encontro <span class="required">*</span></label>
-        <input id="description" type="text" pInputText formControlName="description" placeholder="Ex: Revisão de Matemática" [class.ng-invalid]="isFieldInvalid('description')" [class.ng-dirty]="isFieldInvalid('description')" />
+        <textarea id="description" pInputText formControlName="description" rows="4" placeholder="Ex: Revisão de Matemática" [class.ng-invalid]="isFieldInvalid('description')" [class.ng-dirty]="isFieldInvalid('description')"></textarea>
         @if (isFieldInvalid('description')) {
           <small class="error-message">
             <i class="pi pi-exclamation-circle"></i> A descrição é obrigatória (mínimo de 4 caracteres).
@@ -45,7 +45,10 @@
 
       <div class="field-group">
         <label for="date_time" class="field-label">Data e hora <span class="required">*</span></label>
-        <input id="date_time" type="datetime-local" formControlName="date_time" />
+        <div class="date-input-shell">
+          <i class="pi pi-calendar-clock"></i>
+          <input id="date_time" type="datetime-local" formControlName="date_time" [class.ng-invalid]="isFieldInvalid('date_time')" [class.ng-dirty]="isFieldInvalid('date_time')" />
+        </div>
         @if (isFieldInvalid('date_time')) {
           <small class="error-message">
             <i class="pi pi-exclamation-circle"></i> A data e hora são obrigatórias.
@@ -55,7 +58,7 @@
 
       <div class="form-actions">
         <p-button label="Cancelar" severity="secondary" [outlined]="true" [routerLink]="groupId ? ['/group', groupId] : '/'" type="button"></p-button>
-        <p-button [label]="isEditMode() ? 'Salvar Alterações' : 'Criar Encontro'" [icon]="isEditMode() ? 'pi pi-save' : 'pi pi-check'" type="submit" [loading]="isSubmitting()"></p-button>
+        <p-button [label]="isEditMode() ? 'Salvar Alterações' : 'Criar Encontro'" [icon]="isEditMode() ? 'pi pi-save' : 'pi pi-check'" type="submit" [loading]="isSubmitting() || isLoading()" [disabled]="isLoading()"></p-button>
       </div>
     </form>
   </main>
