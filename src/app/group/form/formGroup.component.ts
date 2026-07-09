@@ -38,7 +38,7 @@ export class FormGroupComponent implements OnInit {
   isEditMode = signal(false);
   groupId: number | null = null;
   isSubmitting = signal(false);
-  areas: WritableSignal<Area[]> = signal([]); 
+  areas: WritableSignal<{id: number, name: string}[]> = signal([]); 
   
   groupForm!: FormGroup;
   
@@ -85,7 +85,7 @@ export class FormGroupComponent implements OnInit {
 
   getAreas(): void {
     this.groupService.getAreas().subscribe({
-      next: areas => this.areas.set(areas),
+      next: areas => this.areas.set(areas.map(({id, name}) => ({id, name}))),
       error: () => {
         this.messageService.add({ severity: 'error', summary: 'Erro ao buscar áreas', detail: 'Tente novamente mais tarde', life: 5000 });
         this.router.navigateByUrl('');
