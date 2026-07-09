@@ -20,34 +20,33 @@ export const routes: Routes = [
     { path: '', component: FeedComponent },
 
 
-    { path: 'my-groups', component: MyGroupsComponent },
     { path: 'area/:name', component: AreaComponent },
     { path: 'auth/login', component: LoginComponent },
     { path: 'auth/register', component: RegisterComponent },
-
-    { path: 'create-group', component: FormGroupComponent },
-    { path: 'edit-group/:id', component: FormGroupComponent },
-
-    { path: 'group/:groupId/notice/create', component: NoticeFormComponent },
-    { path: 'group/:groupId/notice/edit/:noticeId', component: NoticeFormComponent },
-    { path: 'group/:groupId/notice/:noticeId', component: NoticeComponent },
-    { path: 'group/:groupId/material/create', component: MaterialFormComponent },
-    { path: 'group/:groupId/material/edit/:materialId', component: MaterialFormComponent },
-    { path: 'group/:groupId/material/:materialId', component: MaterialComponent },
-    { path: 'group/:groupId/meet/create', component: MeetFormComponent },
-    { path: 'group/:groupId/meet/edit/:meetId', component: MeetFormComponent },
-    { path: 'group/:groupId/meet/:meetId', component: MeetComponent },
-    { path: 'group/:id', component: GroupComponent },
-
+    
+    
     { path: '', canActivate: [authGuard], children: [
+        { path: 'create-group', component: FormGroupComponent },
+        { path: 'edit-group/:id', component: FormGroupComponent },
+        { path: 'my-groups', component: MyGroupsComponent },
+        { path: 'group/:groupId/notice/create', component: NoticeFormComponent },
+        { path: 'group/:groupId/notice/edit/:noticeId', component: NoticeFormComponent },
+        { path: 'group/:groupId/notice/:noticeId', component: NoticeComponent },
+        { path: 'group/:groupId/material/create', component: MaterialFormComponent },
+        { path: 'group/:groupId/material/edit/:materialId', component: MaterialFormComponent },
+        { path: 'group/:groupId/material/:materialId', component: MaterialComponent },
+        { path: 'group/:groupId/meet/create', component: MeetFormComponent },
+        { path: 'group/:groupId/meet/edit/:meetId', component: MeetFormComponent },
+        { path: 'group/:groupId/meet/:meetId', component: MeetComponent },
+        { path: 'group/:id', component: GroupComponent },
         { path: 'profile', component: ProfileComponent },
         { path: '', component: FeedComponent },
-         { path: "create-group", component: FormGroupComponent },
-            { path: "edit-group/:id", component: FormGroupComponent },
-            { path: "group/:id/enroll", component: EnrollGroupComponent },
-            { path: 'area/:name', component: AreaComponent },
-            { path: "group/:id", component: GroupComponent },
-            { path: "profile", component: ProfileComponent},
-            { path: '', component: FeedComponent }
+        { path: "create-group", component: FormGroupComponent },
+        { path: "edit-group/:id", component: FormGroupComponent },
+        { path: "group/:id/enroll", component: EnrollGroupComponent },
+        { path: 'area/:name', component: AreaComponent },
+        { path: "group/:id", component: GroupComponent },
+        { path: "profile", component: ProfileComponent},
+        { path: '', component: FeedComponent }
     ]}
 ]
