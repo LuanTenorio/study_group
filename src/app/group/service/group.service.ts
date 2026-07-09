@@ -55,4 +55,8 @@ export class GroupService {
     return this.http.post<void>(`${this.apiUrl}/${id}/enroll`, {})
   }
 
+  unenroll(id: number){
+    return this.http.delete<void>(`${this.apiUrl}/${id}/enroll`)
+  }
+
 }

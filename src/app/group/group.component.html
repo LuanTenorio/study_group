@@ -118,6 +118,18 @@
           (click)="delete()">
         </button>
       </div>
+    } @else {
+      <div class="actions-footer">
+        <button 
+          type="button" 
+          pButton 
+          icon="pi pi-trash" 
+          label="Sair do grupo" 
+          severity="danger" 
+          [outlined]="true" 
+          (click)="unenroll()">
+        </button>
+      </div>
     }
 
     <p-confirmDialog appendTo="body" />

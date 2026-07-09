@@ -116,4 +116,21 @@ export class GroupComponent implements OnInit {
         return "file";
     }
   }
+
+  unenroll(){
+    if(this.group()?.role == "owner"){
+      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Administradores não podem sair do grupo', life: 5000 })
+      return
+    }
+
+    this.groupService.unenroll(this.id).subscribe({
+      next: () => {
+        this.messageService.add({ severity: 'success', summary: 'Operação concluida', detail: 'Você saiu do grupo com sucesso' })
+        this.router.navigateByUrl("")
+      }, error: (error: HttpErrorResponse) => {
+        console.log(error)
+        this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Falha non servidor. Tente novamente mais tarde', life: 5000 })
+      }
+    })
+  }
 }
