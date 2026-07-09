@@ -4,11 +4,12 @@ import { RouterModule } from '@angular/router';
 import { MenubarModule } from 'primeng/menubar';
 import { ToastModule } from 'primeng/toast';
 import { AuthService } from './auth/service/auth.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterModule, MenubarModule, ToastModule],
+  imports: [CommonModule, RouterModule, MenubarModule, ToastModule, ButtonModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
@@ -17,14 +18,16 @@ export class AppComponent {
   readonly authService = inject(AuthService);
 
   menuItems = [
-      {
-        label: 'NOVO GRUPO',
-        routerLink: ['/create-group']
-      },
-      {
-        label: 'GRUPOS',
-        routerLink: ['/my-groups'] // TODO: Alterar para as rotas certas futuramente
-      },
-    ];
+    {
+      label: 'Novo Grupo',
+      icon: 'pi pi-plus-circle',
+      routerLink: ['/create-group']
+    },
+    {
+      label: 'Meus Grupos',
+      icon: 'pi pi-users',
+      routerLink: ['/my-groups']
+    },
+  ];
 
 }

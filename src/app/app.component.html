@@ -2,31 +2,40 @@
   <header class="top-navbar">
     <p-menubar [model]="menuItems">
       
-      <!-- redirecionamento para o feed através da logo -->
       <ng-template pTemplate="start">
-        <span class="logo-text" routerLink="/">Grupo de estudos</span>
+        <a routerLink="/" class="logo-area">
+          <div class="logo-icon">
+            <i class="pi pi-graduation-cap"></i>
+          </div>
+          <span class="logo-text">Aprender<span class="highlight">+</span></span>
+        </a>
       </ng-template>
 
-      <!-- botões de Autenticação -->
       <ng-template pTemplate="end">
         @if (authService.currentUser(); as user) {
           <div class="auth-buttons">
             <button class="logged-user" type="button" routerLink="/profile">
-              Olá, {{ user.name }}
+              <i class="pi pi-user"></i>
+              <span>{{ user.name }}</span>
             </button>
 
-            <button class="btn-logout" type="button" (click)="authService.logout()">
-              Sair
-            </button>
+            <p-button 
+              icon="pi pi-sign-out" 
+              label="Sair" 
+              severity="secondary" 
+              [outlined]="true" 
+              size="small" 
+              (onClick)="authService.logout()">
+            </p-button>
           </div>
         } @else {
           <div class="auth-buttons">
             <button class="btn-login" routerLink="/auth/login">
-              Login
+              Entrar
             </button>
 
             <button class="btn-cadastro" routerLink="/auth/register">
-              Cadastro
+              Criar Conta
             </button>
           </div>
         }

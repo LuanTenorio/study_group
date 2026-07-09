@@ -8,68 +8,88 @@
     position: sticky;
     top: 0;
     z-index: 1000;
-    background-color: var(--navbar-bg);
-    border-bottom: 1px solid #cbd5e1;
-    box-shadow: var(--shadow-sm);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
 
     ::ng-deep .p-menubar {
       background-color: transparent;
       border: none;
       border-radius: 0;
-      padding: 0.5rem 2rem;
-    
+      padding: 0.65rem 2.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+
       .p-menuitem {
-        margin: 0 0.25rem;
+        margin: 0 0.35rem;
       }
 
       .p-menuitem-link {
-        color: var(--navbar-text);
-        font-weight: 500;
+        color: #475569;
+        font-weight: 600;
+        font-size: 0.925rem;
         border-radius: 8px;
         padding: 0.5rem 1rem;
-        transition: all 0.2s ease;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
         &:hover {
-          background-color: var(--navbar-hover);
-          color: var(--accent-blue);
+          background-color: #f1f5f9;
+          color: #2563eb;
+          transform: translateY(-1px);
         }
 
-        .p-menuitem-text, 
         .p-menuitem-icon {
-          color: inherit;
+          color: #64748b;
+          margin-right: 0.5rem;
+          font-size: 1.1rem;
+        }
+
+        &:hover .p-menuitem-icon {
+          color: #2563eb;
         }
       }
     }
-    
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    margin-right: 2.5rem;
+    cursor: pointer;
+
+    .logo-icon {
+      background: linear-gradient(135deg, #1e40af, #3b82f6);
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.25);
+    }
+
     .logo-text {
       font-weight: 800;
       font-size: 1.25rem;
-      margin-right: 2rem;
-      color: var(--accent-blue);
+      color: #0f172a;
       letter-spacing: -0.025em;
+
+      .highlight {
+        color: #2563eb;
+      }
     }
   }
 
   .content-area {
     flex-grow: 1;
-    padding: 2rem;
-    background-color: transparent; 
-  }
-}
-
-:host {
-  display: block;
-}
-
-.logo-text {
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: var(--accent-blue);
-  transition: color 0.2s ease;
-  
-  &:hover {
-    color: #1d4ed8; 
+    background-color: #f8fafc; 
+    padding: 0;
   }
 }
 
@@ -80,9 +100,9 @@
 
   button {
     font-family: inherit;
-    font-size: 0.95rem;
+    font-size: 0.925rem;
     font-weight: 600;
-    padding: 0.5rem 1.25rem;
+    padding: 0.55rem 1.25rem;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -90,42 +110,47 @@
 
     &.btn-login {
       background: transparent;
-      color: var(--text-main);
+      color: #475569;
       
       &:hover {
-        background: rgba(0, 0, 0, 0.04);
-        color: var(--accent-blue);
+        background: #f1f5f9;
+        color: #0f172a;
       }
     }
 
     &.btn-cadastro {
-      background-color: var(--accent-blue);
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
       color: white;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
       
       &:hover {
-        background-color: #1d4ed8;
         transform: translateY(-1px);
-        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
       }
     }
   }
-}
 
-.logged-user {
-  background: transparent;
-  color: var(--text-main);
-  border: none;
-  font-family: inherit;
-  font-size: 0.95rem;
-  font-weight: 700;
-  padding: 0.5rem 0.75rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  .logged-user {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #f1f5f9;
+    color: #1e293b;
+    border: 1px solid #e2e8f0;
+    font-weight: 600;
+    padding: 0.45rem 1rem;
+    border-radius: 99px;
+    transition: all 0.2s ease;
 
-  &:hover {
-    background: rgba(37, 99, 235, 0.08);
-    color: var(--accent-blue);
+    i {
+      color: #3b82f6;
+      font-size: 1rem;
+    }
+
+    &:hover {
+      background: #e2e8f0;
+      border-color: #cbd5e1;
+      color: #0f172a;
+    }
   }
 }
